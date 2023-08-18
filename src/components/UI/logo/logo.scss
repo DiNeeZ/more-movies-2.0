@@ -1,0 +1,65 @@
+@import "@fontsource/bebas-neue/400.css";
+@import "../../../styles/colors.scss";
+@import "../../../styles/mixins.scss";
+
+.logo {
+  margin-right: 2rem;
+  font-size: 1.4rem;
+
+  &:hover,
+  &:focus-within {
+    .logo__icon {
+      fill: $soft-red;
+      transform: rotate(360deg);
+    }
+
+    .logo__text {
+      --_p: 0%;
+    }
+  }
+
+  &__link {
+    font-family: "Bebas Neue", cursive;
+    margin: 0;
+    display: flex;
+    align-items: flex-end;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    outline: none;
+  }
+
+  &__icon {
+    font-size: 2rem;
+    fill: $yellow;
+    transition: 0.4s;
+  }
+
+  &__text {
+    font-family: inherit;
+    color: #0000;
+    background: linear-gradient(90deg, $yellow 50%, $soft-red 0) var(--_p, 100%) /
+      200% no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    transition: 0.4s;
+
+    span {
+      font-family: inherit;
+      background: linear-gradient(90deg, $soft-red 50%, $yellow 0)
+        var(--_p, 100%) / 200% no-repeat;
+      -webkit-background-clip: text;
+      background-clip: text;
+      transition: 0.4s;
+    }
+  }
+}
+
+@include mobile {
+  .logo {
+    margin-right: 0;
+
+    &__text {
+      display: none;
+    }
+  }
+}

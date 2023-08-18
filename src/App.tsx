@@ -3,7 +3,6 @@ import { Routes, Route } from "react-router-dom";
 import { Home, Details } from "./routes";
 import { PageLayout, ScrollToTop } from "./components";
 
-import "./styles/normalize.scss";
 import "./styles/global.scss";
 
 const App = () => {

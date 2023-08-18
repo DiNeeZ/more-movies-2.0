@@ -2,8 +2,9 @@ import { useQuery } from "react-query";
 
 import { getGenres, getTrendingMovies } from "../../api/tmdb";
 import { extractGenres, getPosterPath } from "../../utils/helpers";
-import { Section } from "../../components";
+import { CardGrid, Section } from "../../components";
 import { Card } from "../../components";
+import { ColorfulSectionTitle } from "../../components/UI";
 import type { TrandingMovie } from "../../models/movie-model";
 
 import "./tranding.movies.scss";
@@ -47,10 +48,10 @@ const TrandingMovies = () => {
   if (trandingMoviesQuery.isSuccess && genresQuery.isSuccess) {
     return (
       <Section>
-        <h2>MOVIES</h2>
-        <div className="tranding-movies">
+        <ColorfulSectionTitle>Popular Movies</ColorfulSectionTitle>
+        <CardGrid>
           {trandingMoviesQuery.data.results.map(renderMoviesGrid)}
-        </div>
+        </CardGrid>
       </Section>
     );
   }

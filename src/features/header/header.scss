@@ -1,0 +1,30 @@
+@import "../../styles/colors.scss";
+@import "../../styles/mixins.scss";
+
+.header {
+  width: 100%;
+  padding: 0.5rem 0;
+  background-color: $primary-color;
+  box-shadow: 0px 3px 10px 0px rgba($dark-color, 0.75);
+  z-index: 10;
+
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: 15rem;
+  }
+}
+
+@include small-tablet {
+  .header {
+    &__container {
+      flex-wrap: wrap;
+    }
+  }
+}

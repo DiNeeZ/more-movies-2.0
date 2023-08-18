@@ -1,0 +1,59 @@
+@import "../../styles/colors.scss";
+@import "../../styles/mixins.scss";
+
+.collapsible-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  column-gap: 0.75rem;
+  row-gap: 2rem;
+
+  &:last-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-column-start: 1;
+    grid-column-end: 6;
+  }
+}
+
+@include tablet {
+  .collapsible-grid {
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 2rem;
+    row-gap: 2rem;
+    margin-bottom: 0;
+
+    button {
+      position: relative;
+      height: 0;
+      padding-bottom: 150%;
+      grid-column-start: auto;
+      grid-column-end: auto;
+    }
+  }
+}
+
+@include mobile {
+  .collapsible-grid {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 2rem;
+    row-gap: 2rem;
+    margin-bottom: 0;
+
+    button {
+    }
+  }
+}
+
+@include small-mobile {
+  .collapsible-grid {
+    grid-template-columns: repeat(1, 1fr);
+    column-gap: 2rem;
+    row-gap: 2rem;
+    margin-bottom: 0;
+
+    button {
+    }
+  }
+}

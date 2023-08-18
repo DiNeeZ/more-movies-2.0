@@ -1,0 +1,56 @@
+@import "../../styles/colors.scss";
+@import "../../styles/mixins.scss";
+
+.footer {
+  padding: 1rem 0;
+  color: $font-primary;
+  text-align: center;
+  background-color: $primary-color;
+  box-shadow: 0px -3px 10px 0px rgba($dark-color, 0.75);
+  z-index: 10;
+
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    font-size: 1rem;
+
+    &__link {
+      gap: 0.3rem;
+    }
+
+    &__icon {
+      font-size: 1.3rem;
+    }
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    span {
+      font-size: 0.7rem;
+      margin-right: 1rem;
+    }
+
+    a {
+      width: 5rem;
+    }
+  }
+}
+
+@include mobile {
+  .footer {
+    &__container {
+      flex-direction: column;
+    }
+
+    &__right {
+      flex-direction: column;
+    }
+  }
+}

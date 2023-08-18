@@ -1,13 +1,12 @@
 import { Outlet } from "react-router-dom";
+import { Header, Footer } from "../../features";
 
 const PageLayout = () => {
   return (
     <>
-      <header>Header</header>
-      <main className="main">
-        <Outlet />
-      </main>
-      <footer>footer</footer>
+      <Header />
+      <Outlet />
+      <Footer />
     </>
   );
 };

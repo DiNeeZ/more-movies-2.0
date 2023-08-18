@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import "./section.scss";
 
 const Section = ({
   children,
@@ -10,13 +11,13 @@ const Section = ({
   if (className)
     return (
       <section className={className}>
-        <div className="container">{children}</div>
+        <div className="container section__container">{children}</div>
       </section>
     );
 
   return (
-    <section>
-      <div className="container">{children}</div>
+    <section className="section">
+      <div className="container section__container">{children}</div>
     </section>
   );
 };

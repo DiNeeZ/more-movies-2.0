@@ -1,0 +1,21 @@
+@import "../../../styles/colors.scss";
+@import "../../../styles/mixins.scss";
+
+.colorful-section-title {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1;
+  color: $yellow;
+
+  &__substring {
+    font-family: inherit;
+    &--red {
+      color: $soft-red;
+    }
+
+    &--yellow {
+      color: $yellow;
+    }
+  }
+}

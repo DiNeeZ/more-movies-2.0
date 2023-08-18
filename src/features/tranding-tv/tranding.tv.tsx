@@ -2,10 +2,11 @@ import { useQuery } from "react-query";
 
 import { getGenres, getTrendingTvs } from "../../api/tmdb";
 import { extractGenres, getPosterPath } from "../../utils/helpers";
-import { Section, Card } from "../../components";
+import { Section, Card, CardGrid } from "../../components";
 import type { TrandingTv } from "../../models/tv-model";
 
 import "./tranding.tv.scss";
+import { ColorfulSectionTitle } from "../../components/UI";
 
 const TrandingTvs = () => {
   const genresQuery = useQuery("genres", getGenres);
@@ -40,11 +41,9 @@ const TrandingTvs = () => {
 
   if (trandingTvsQuery.isSuccess && genresQuery.isSuccess) {
     return (
-      <Section>
-        <h2>TV SHOWS</h2>
-        <div className="tranding-movies">
-          {trandingTvsQuery.data.results.map(renderTvsGrid)}
-        </div>
+      <Section className="tranding-tv-section">
+        <ColorfulSectionTitle>Popular Shows</ColorfulSectionTitle>
+        <CardGrid>{trandingTvsQuery.data.results.map(renderTvsGrid)}</CardGrid>
       </Section>
     );
   }

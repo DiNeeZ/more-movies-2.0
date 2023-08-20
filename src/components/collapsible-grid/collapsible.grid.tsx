@@ -35,7 +35,11 @@ const CollapsibleGrid = ({ children }: CollapsibleGridProps) => {
 
           return <li>{child}</li>;
         })}
-        <li>
+        <li
+          className={`collapsible-grid__item ${
+            isOpen ? "collapsible-grid__item--opened" : ""
+          }`}
+        >
           <MoreLessBtn handleClick={toggleCollapseGrid} isOpen={isOpen} />
         </li>
       </ul>

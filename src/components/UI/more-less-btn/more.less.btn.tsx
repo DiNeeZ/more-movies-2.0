@@ -10,15 +10,15 @@ interface MoreLessBtnProps {
 const MoreLessBtn = ({ handleClick, isOpen }: MoreLessBtnProps) => {
   return (
     <button
-      className={`listing-btn listing-btn--${isOpen ? "opened" : "closed"}`}
+      className={`more-less-btn more-less-btn--${isOpen ? "opened" : "closed"}`}
       onClick={handleClick}
     >
-      <div className="listing-btn__inner">
+      <div className="more-less-btn__inner">
         {!isOpen ? "See more" : "See less"}
         {!isOpen ? (
-          <BsChevronCompactDown className="listing-btn__icon listing-btn__icon--down" />
+          <BsChevronCompactDown className="more-less-btn__icon more-less-btn__icon--down" />
         ) : (
-          <BsChevronCompactUp className="listing-btn__icon listing-btn__icon--up" />
+          <BsChevronCompactUp className="more-less-btn__icon more-less-btn__icon--up" />
         )}
       </div>
     </button>

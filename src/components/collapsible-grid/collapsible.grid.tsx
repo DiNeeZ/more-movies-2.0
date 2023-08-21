@@ -1,6 +1,6 @@
 import { Children, ReactNode, useRef, useState } from "react";
-import { useAutoAnimate } from "@formkit/auto-animate/react";
-
+import { AnimatePresence, motion, Variants } from "framer-motion";
+import useMeasure from "react-use-measure";
 import { MoreLessBtn } from "../UI";
 
 import "./collapsible.grid.scss";
@@ -10,40 +10,75 @@ interface CollapsibleGridProps {
 }
 
 const CollapsibleGrid = ({ children }: CollapsibleGridProps) => {
-  const myRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
-  const [parent, enable] = useAutoAnimate();
+  const myRef = useRef<HTMLDivElement>(null);
+  const [ref, { height }] = useMeasure();
 
-  const executeScroll = () => {
-    if (!myRef.current) return;
-    myRef.current.scrollIntoView({ behavior: "smooth" });
+  const containerVariants = {
+    open: {
+      height,
+      transition: {
+        staggerChildren: 0.05,
+      },
+    },
+    closed: {
+      height,
+      transition: {
+        duration: 3,
+        staggerChildren: 0.1,
+        // when: "afterChildren",
+        staggerDirection: -1,
+      },
+    },
   };
 
+  const childVariants = {
+    open: { opacity: 1 },
+    closed: { opacity: 0 },
+  };
+
+  // const executeScroll = () => {
+  //   if (!myRef.current) return;
+  //   myRef.current.scrollIntoView({ behavior: "smooth" });
+  // };
+
   const toggleCollapseGrid = () => {
-    if (isOpen) executeScroll();
-    enable(!isOpen);
+    // if (isOpen) executeScroll();
     setIsOpen(!isOpen);
   };
 
-  return (
-    <div ref={myRef}>
-      <ul ref={parent} className="collapsible-grid">
-        {Children.map(children, (child, index) => {
-          if (!isOpen) {
-            return index <= 4 ? <li>{child}</li> : null;
-          }
+  const renderClosed = () =>
+    Children.map(children, (child) => <div>{child}</div>)?.slice(0, 5);
 
-          return <li>{child}</li>;
-        })}
-        <li
+  const renderOpened = () => {
+    return Children.map(children, (child) => (
+      <motion.div initial={{ opacity: 0 }} variants={childVariants}>
+        {child}
+      </motion.div>
+    ))?.slice(5);
+  };
+
+  console.log(height);
+
+  return (
+    <motion.div
+      initial="closed"
+      animate={isOpen ? `open` : `closed`}
+      variants={containerVariants}
+    >
+      <div ref={ref} className="collapsible-grid">
+        {renderClosed()}
+        <AnimatePresence>{isOpen && renderOpened()}</AnimatePresence>
+
+        <div
           className={`collapsible-grid__item ${
             isOpen ? "collapsible-grid__item--opened" : ""
           }`}
         >
           <MoreLessBtn handleClick={toggleCollapseGrid} isOpen={isOpen} />
-        </li>
-      </ul>
-    </div>
+        </div>
+      </div>
+    </motion.div>
   );
 };
 

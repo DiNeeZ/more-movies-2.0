@@ -3,7 +3,7 @@ import "./home.scss";
 
 const Home = () => {
   return (
-    <main className="home-page">
+    <main className="main home-page">
       <TrandingMovies />
       <TrandingTvs />
     </main>

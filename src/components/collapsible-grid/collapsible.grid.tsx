@@ -10,11 +10,13 @@ interface CollapsibleGridProps {
 
 const CollapsibleGrid = ({ children }: CollapsibleGridProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const myRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLUListElement>(null);
+
+  const INITIAL_ITEMS_QTY = 5;
 
   const executeScroll = () => {
-    if (!myRef.current) return;
-    myRef.current.scrollIntoView({ behavior: "smooth" });
+    if (!listRef.current) return;
+    listRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
   const toggleCollapseGrid = () => {
@@ -25,9 +27,12 @@ const CollapsibleGrid = ({ children }: CollapsibleGridProps) => {
   const items = Children.map(children, (child, i) => (
     <AnimatePresence>
       <motion.li
-        initial={i >= 5 && { x: -20, opacity: 0 }}
-        animate={i >= 5 && { x: 0, opacity: 1 }}
-        transition={{ duration: 0.5, delay: isOpen ? (i - 4) * 0.05 : 0 }}
+        initial={i >= INITIAL_ITEMS_QTY && { x: -20, opacity: 0 }}
+        animate={i >= INITIAL_ITEMS_QTY && { x: 0, opacity: 1 }}
+        transition={{
+          duration: 0.5,
+          delay: isOpen ? (i + 1 - INITIAL_ITEMS_QTY) * 0.05 : 0,
+        }}
       >
         {child}
       </motion.li>
@@ -35,8 +40,8 @@ const CollapsibleGrid = ({ children }: CollapsibleGridProps) => {
   ));
 
   return (
-    <ul className="collapsible-grid">
-      {isOpen ? items : items?.slice(0, 5)}
+    <ul ref={listRef} className="collapsible-grid">
+      {isOpen ? items : items?.slice(0, INITIAL_ITEMS_QTY)}
       <li
         className={`collapsible-grid__item ${
           isOpen ? "collapsible-grid__item--opened" : ""

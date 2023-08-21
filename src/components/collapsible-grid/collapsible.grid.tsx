@@ -1,6 +1,5 @@
 import { Children, ReactNode, useRef, useState } from "react";
-import { AnimatePresence, motion, Variants } from "framer-motion";
-import useMeasure from "react-use-measure";
+import { AnimatePresence, motion } from "framer-motion";
 import { MoreLessBtn } from "../UI";
 
 import "./collapsible.grid.scss";
@@ -12,73 +11,40 @@ interface CollapsibleGridProps {
 const CollapsibleGrid = ({ children }: CollapsibleGridProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const myRef = useRef<HTMLDivElement>(null);
-  const [ref, { height }] = useMeasure();
 
-  const containerVariants = {
-    open: {
-      height,
-      transition: {
-        staggerChildren: 0.05,
-      },
-    },
-    closed: {
-      height,
-      transition: {
-        duration: 3,
-        staggerChildren: 0.1,
-        // when: "afterChildren",
-        staggerDirection: -1,
-      },
-    },
+  const executeScroll = () => {
+    if (!myRef.current) return;
+    myRef.current.scrollIntoView({ behavior: "smooth" });
   };
-
-  const childVariants = {
-    open: { opacity: 1 },
-    closed: { opacity: 0 },
-  };
-
-  // const executeScroll = () => {
-  //   if (!myRef.current) return;
-  //   myRef.current.scrollIntoView({ behavior: "smooth" });
-  // };
 
   const toggleCollapseGrid = () => {
-    // if (isOpen) executeScroll();
+    if (isOpen) executeScroll();
     setIsOpen(!isOpen);
   };
 
-  const renderClosed = () =>
-    Children.map(children, (child) => <div>{child}</div>)?.slice(0, 5);
-
-  const renderOpened = () => {
-    return Children.map(children, (child) => (
-      <motion.div initial={{ opacity: 0 }} variants={childVariants}>
+  const items = Children.map(children, (child, i) => (
+    <AnimatePresence>
+      <motion.li
+        initial={i >= 5 && { x: -20, opacity: 0 }}
+        animate={i >= 5 && { x: 0, opacity: 1 }}
+        transition={{ duration: 0.5, delay: isOpen ? (i - 4) * 0.05 : 0 }}
+      >
         {child}
-      </motion.div>
-    ))?.slice(5);
-  };
-
-  console.log(height);
+      </motion.li>
+    </AnimatePresence>
+  ));
 
   return (
-    <motion.div
-      initial="closed"
-      animate={isOpen ? `open` : `closed`}
-      variants={containerVariants}
-    >
-      <div ref={ref} className="collapsible-grid">
-        {renderClosed()}
-        <AnimatePresence>{isOpen && renderOpened()}</AnimatePresence>
-
-        <div
-          className={`collapsible-grid__item ${
-            isOpen ? "collapsible-grid__item--opened" : ""
-          }`}
-        >
-          <MoreLessBtn handleClick={toggleCollapseGrid} isOpen={isOpen} />
-        </div>
-      </div>
-    </motion.div>
+    <ul className="collapsible-grid">
+      {isOpen ? items : items?.slice(0, 5)}
+      <li
+        className={`collapsible-grid__item ${
+          isOpen ? "collapsible-grid__item--opened" : ""
+        }`}
+      >
+        <MoreLessBtn handleClick={toggleCollapseGrid} isOpen={isOpen} />
+      </li>
+    </ul>
   );
 };
 

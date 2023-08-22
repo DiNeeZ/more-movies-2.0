@@ -14,20 +14,6 @@
   border: none;
   cursor: pointer;
 
-  &:hover {
-    .more-less-btn__icon {
-      opacity: 1;
-
-      &--down {
-        transform: translate(-50%, 0.5rem);
-      }
-
-      &--up {
-        transform: translate(-50%, -2.25rem);
-      }
-    }
-  }
-
   &__inner {
     font-family: inherit;
   }
@@ -39,35 +25,38 @@
     transform: translate(-50%, -50%);
     font-size: 1.5rem;
     opacity: 0;
-    transition:
-      transform 0.3s ease-in-out,
-      opacity 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  }
+}
+
+@include for-desktop {
+  .more-less-btn {
+    &:hover {
+      .more-less-btn__icon {
+        opacity: 1;
+
+        &--down {
+          transform: translate(-50%, 0.5rem);
+        }
+
+        &--up {
+          transform: translate(-50%, -2.25rem);
+        }
+      }
+    }
   }
 }
 
 @include tablet {
   .more-less-btn {
-    position: absolute;
-    top: 0;
     width: 100%;
     height: 100%;
     font-size: 1.5rem;
     border: 1px solid $font-secondary;
+    border-radius: 1rem;
 
     .more-less-btn__icon {
       font-size: 2rem;
-    }
-
-    &:hover {
-      .more-less-btn__icon {
-        &--down {
-          transform: translate(-50%, 2.5rem);
-        }
-
-        &--up {
-          transform: translate(-50%, -3.75rem);
-        }
-      }
     }
 
     &--opened {
@@ -102,22 +91,21 @@
       font-size: 1.5rem;
     }
 
-    &:hover {
-      .more-less-btn__icon {
-        &--up {
-          transform: translate(-50%, -1.5rem);
-        }
-      }
-    }
-
     &--opened {
-      padding-top: 1.5rem;
+      padding-top: 0.5rem;
+      .more-less-btn__inner {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+      }
 
       .more-less-btn__icon {
+        position: static;
         opacity: 1;
 
         &--up {
-          transform: translate(-50%, -1.5rem);
+          transform: translate(0);
         }
       }
     }
@@ -126,28 +114,23 @@
 
 @include small-mobile {
   .more-less-btn {
-    padding-top: 0;
+    &__inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
 
-    &:hover {
-      .more-less-btn__icon {
-        &--up {
-          transform: translate(-50%, -1.5rem);
-        }
-
-        &--down {
-          transform: translate(-50%, 0.25rem);
-        }
-      }
+    &__icon {
+      position: static;
+      transform: translate(0);
     }
 
     &--opened {
-      padding-top: 1.5rem;
-
+      padding-top: 0.5rem;
       .more-less-btn__icon {
-        opacity: 1;
-
         &--up {
-          transform: translate(-50%, -1.5rem);
+          transform: translate(0);
         }
       }
     }
@@ -155,7 +138,7 @@
     &--closed {
       .more-less-btn__icon {
         &--down {
-          transform: translate(-50%, 0.25rem);
+          transform: translate(0);
         }
       }
     }

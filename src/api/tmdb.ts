@@ -1,7 +1,10 @@
 import axios from "axios";
-import { TrandingMovies } from "../models/movie-model";
+import {
+  TrandingMovies,
+  TrandingMovieResponseSchema,
+} from "../models/movie-model";
 import { GenreResponse } from "../models/genre-model";
-import { TrandingTvs } from "../models/tv-model";
+import { TrandingTvs, TrandingTvResponseSchema } from "../models/tv-model";
 
 const BASE_URL = "https://api.themoviedb.org/3/";
 export const BASE_IMAGES = "https://image.tmdb.org/t/p/";
@@ -22,10 +25,7 @@ export const getTrendingMovies = async () => {
     `trending/movie/day?api_key=${API_KEY}`
   );
 
-  return {
-    mediaType: "movie",
-    ...response.data,
-  };
+  return TrandingMovieResponseSchema.parse(response.data);
 };
 
 export const getTrendingTvs = async () => {
@@ -33,8 +33,5 @@ export const getTrendingTvs = async () => {
     `trending/tv/day?api_key=${API_KEY}`
   );
 
-  return {
-    mediaType: "tv",
-    ...response.data,
-  };
+  return TrandingTvResponseSchema.parse(response.data);
 };

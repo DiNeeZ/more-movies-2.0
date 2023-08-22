@@ -1,32 +1,45 @@
+import { Link } from "react-router-dom";
+import moment from "moment";
+
 import { CustomImage } from "..";
+import Genres from "../genres/genres";
 import { Genre } from "../../models/genre-model";
+
 import "./card.scss";
+import { TrandingTv } from "../../models/tv-model";
+import { TrandingMovie } from "../../models/movie-model";
 
 interface CardProps {
+  info: TrandingTv | TrandingMovie;
   srcSet:
     | {
         image: string;
         preview: string;
       }
     | undefined;
-  title: string;
   genres: Genre[];
 }
 
-const Card = ({ srcSet, title, genres }: CardProps) => {
+const Card = ({ info, srcSet, genres }: CardProps) => {
+  const { id, title, releaseDate } = info;
+  const releaseYear = releaseDate
+    ? moment(new Date(releaseDate)).format("YYYY")
+    : null;
+
   return (
     <article className="card">
-      <div className="movie-card__card card">
-        <div className="card__image-wrapper">
-          <CustomImage src={srcSet} alt={title} width={372} height={558} />
+      <Link className="card__link" to={`/${id}`}>
+        <div className="">
+          <div className="card__image-wrapper">
+            <CustomImage src={srcSet} alt={title} width={372} height={558} />
+          </div>
         </div>
-      </div>
-      <span className="card__title">{title}</span>
-      <ul className="genres">
-        {genres.map((genre) => (
-          <li key={genre.id}>{genre.name}</li>
-        ))}
-      </ul>
+        <div className="card__descr card-descr">
+          <h3 className="card-descr__title">{title}</h3>
+          {!!genres.length && <Genres genres={genres} />}
+          <div className="card-descr__release-year">{releaseYear}</div>
+        </div>
+      </Link>
     </article>
   );
 };

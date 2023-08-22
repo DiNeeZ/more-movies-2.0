@@ -1,0 +1,20 @@
+@import "../../styles/colors.scss";
+
+.genres {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 0.25rem;
+  row-gap: 0.5rem;
+  margin: 0;
+
+  li {
+    font-family: "Rajdhani", sans-serif;
+    letter-spacing: 1px;
+    text-transform: lowercase;
+    padding: 0.2rem 0.4rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    border-radius: 0.25rem;
+    box-shadow: 1px 1px 4px rgba($dark-color, 0.5);
+  }
+}

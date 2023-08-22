@@ -10,7 +10,10 @@ const App = () => {
     <ScrollToTop>
       <Routes>
         <Route path="/" element={<PageLayout />}>
-          <Route path="*" element={<p>Нихуя нима</p>} />
+          <Route
+            path="*"
+            element={<p style={{ flexGrow: 1 }}>No content!</p>}
+          />
           <Route index element={<Home />} />
           <Route path="/:mediaType/:id" element={<Details />} />
         </Route>

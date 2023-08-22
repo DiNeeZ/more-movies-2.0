@@ -13,17 +13,12 @@ const TrandingMovies = () => {
   const genresQuery = useQuery("genres", getGenres);
   const trandingMoviesQuery = useQuery("tranding-movies", getTrendingMovies);
 
+  console.log(genresQuery.data);
+
   const renderMoviesGrid = (movie: TrandingMovie) => {
-    const genres = extractGenres(genresQuery.data!, movie.genre_ids);
-    const srcSet = getPosterPath(movie.poster_path);
-    return (
-      <Card
-        key={movie.id}
-        srcSet={srcSet}
-        title={movie.title}
-        genres={genres}
-      />
-    );
+    const genres = extractGenres(genresQuery.data!, movie.genreIds);
+    const srcSet = getPosterPath(movie.posterPath);
+    return <Card key={movie.id} info={movie} srcSet={srcSet} genres={genres} />;
   };
 
   if (trandingMoviesQuery.isLoading || genresQuery.isLoading)

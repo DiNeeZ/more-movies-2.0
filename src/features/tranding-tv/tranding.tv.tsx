@@ -12,12 +12,10 @@ const TrandingTvs = () => {
   const genresQuery = useQuery("genres", getGenres);
   const trandingTvsQuery = useQuery("tranding-tvs", getTrendingTvs);
 
-  const renderTvsGrid = (movie: TrandingTv) => {
-    const genres = extractGenres(genresQuery.data!, movie.genre_ids);
-    const srcSet = getPosterPath(movie.poster_path);
-    return (
-      <Card key={movie.id} srcSet={srcSet} title={movie.name} genres={genres} />
-    );
+  const renderTvsGrid = (show: TrandingTv) => {
+    const genres = extractGenres(genresQuery.data!, show.genreIds);
+    const srcSet = getPosterPath(show.posterPath);
+    return <Card key={show.id} info={show} srcSet={srcSet} genres={genres} />;
   };
 
   if (trandingTvsQuery.isLoading || genresQuery.isLoading)

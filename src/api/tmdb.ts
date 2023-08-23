@@ -1,10 +1,10 @@
 import axios from "axios";
 import {
-  TrandingMovies,
-  TrandingMovieResponseSchema,
-} from "../models/movie-model";
+  MovieListResponseSchema,
+  type MovieList,
+} from "../models/movie-list-model";
 import { GenreResponse } from "../models/genre-model";
-import { TrandingTvs, TrandingTvResponseSchema } from "../models/tv-model";
+import { TvListResponseSchema, type TvList } from "../models/tv-list-model";
 
 const BASE_URL = "https://api.themoviedb.org/3/";
 export const BASE_IMAGES = "https://image.tmdb.org/t/p/";
@@ -21,17 +21,25 @@ export const getGenres = async () => {
 };
 
 export const getTrendingMovies = async () => {
-  const response = await MOVIE_API.get<TrandingMovies>(
+  const response = await MOVIE_API.get<MovieList>(
     `trending/movie/day?api_key=${API_KEY}`
   );
 
-  return TrandingMovieResponseSchema.parse(response.data);
+  return MovieListResponseSchema.parse(response.data);
 };
 
 export const getTrendingTvs = async () => {
-  const response = await MOVIE_API.get<TrandingTvs>(
+  const response = await MOVIE_API.get<TvList>(
     `trending/tv/day?api_key=${API_KEY}`
   );
 
-  return TrandingTvResponseSchema.parse(response.data);
+  return TvListResponseSchema.parse(response.data);
+};
+
+export const getUpcoming = async () => {
+  const response = await MOVIE_API.get<MovieList>(
+    `movie/upcoming?api_key=${API_KEY}&language=en-US&page=1`
+  );
+
+  return MovieListResponseSchema.parse(response.data);
 };

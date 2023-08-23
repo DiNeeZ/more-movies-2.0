@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import { getGenres, getTrendingTvs } from "../../api/tmdb";
 import { extractGenres, getPosterPath } from "../../utils/helpers";
 import { Section, Card, CardGrid } from "../../components";
-import type { TrandingTv } from "../../models/tv-model";
+import type { Tv } from "../../models/tv-list-model";
 
 import "./tranding.tv.scss";
 import { ColorfulSectionTitle } from "../../components/UI";
@@ -12,7 +12,7 @@ const TrandingTvs = () => {
   const genresQuery = useQuery("genres", getGenres);
   const trandingTvsQuery = useQuery("tranding-tvs", getTrendingTvs);
 
-  const renderTvsGrid = (show: TrandingTv) => {
+  const renderTvsGrid = (show: Tv) => {
     const genres = extractGenres(genresQuery.data!, show.genreIds);
     const srcSet = getPosterPath(show.posterPath);
     return <Card key={show.id} info={show} srcSet={srcSet} genres={genres} />;

@@ -60,6 +60,13 @@ ul {
   max-width: 1150px;
 }
 
+.btn-reset {
+  border: none;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
 .visually-hidden {
   position: absolute;
   overflow: hidden;

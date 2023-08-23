@@ -5,7 +5,7 @@ import { extractGenres, getPosterPath } from "../../utils/helpers";
 import { CardGrid, Section } from "../../components";
 import { Card } from "../../components";
 import { ColorfulSectionTitle } from "../../components/UI";
-import type { TrandingMovie } from "../../models/movie-model";
+import type { Movie } from "../../models/movie-list-model";
 
 import "./tranding.movies.scss";
 
@@ -13,7 +13,7 @@ const TrandingMovies = () => {
   const genresQuery = useQuery("genres", getGenres);
   const trandingMoviesQuery = useQuery("tranding-movies", getTrendingMovies);
 
-  const renderMoviesGrid = (movie: TrandingMovie) => {
+  const renderMoviesGrid = (movie: Movie) => {
     const genres = extractGenres(genresQuery.data!, movie.genreIds);
     const srcSet = getPosterPath(movie.posterPath);
     return <Card key={movie.id} info={movie} srcSet={srcSet} genres={genres} />;

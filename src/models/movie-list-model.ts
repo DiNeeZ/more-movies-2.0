@@ -1,12 +1,13 @@
 import { z } from "zod";
 
-export const TrandingMovieSchema = z
+export const MovieSchema = z
   .object({
     id: z.number(),
     title: z.string(),
     overview: z.string(),
     poster_path: z.string(),
-    media_type: z.string(),
+    backdrop_path: z.string(),
+    media_type: z.string().optional(),
     genre_ids: z.number().array(),
     release_date: z.string(),
     vote_average: z.number(),
@@ -15,6 +16,7 @@ export const TrandingMovieSchema = z
   .transform(
     ({
       poster_path,
+      backdrop_path,
       media_type,
       genre_ids,
       release_date,
@@ -23,6 +25,7 @@ export const TrandingMovieSchema = z
       ...rest
     }) => ({
       posterPath: poster_path,
+      backdropPath: backdrop_path,
       mediaType: media_type,
       genreIds: genre_ids,
       releaseDate: release_date,
@@ -32,12 +35,12 @@ export const TrandingMovieSchema = z
     })
   );
 
-export const TrandingMovieResponseSchema = z
+export const MovieListResponseSchema = z
   .object({
     page: z.number(),
     total_pages: z.number(),
     total_results: z.number(),
-    results: z.array(TrandingMovieSchema),
+    results: z.array(MovieSchema),
   })
   .transform(({ total_pages, total_results, ...rest }) => ({
     totalPages: total_pages,
@@ -45,5 +48,5 @@ export const TrandingMovieResponseSchema = z
     ...rest,
   }));
 
-export type TrandingMovie = z.infer<typeof TrandingMovieSchema>;
-export type TrandingMovies = z.infer<typeof TrandingMovieResponseSchema>;
+export type Movie = z.infer<typeof MovieSchema>;
+export type MovieList = z.infer<typeof MovieListResponseSchema>;

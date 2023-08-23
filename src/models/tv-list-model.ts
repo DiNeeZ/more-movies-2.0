@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const TrandingTvSchema = z
+export const TvSchema = z
   .object({
     id: z.number(),
     name: z.string(),
@@ -34,12 +34,12 @@ export const TrandingTvSchema = z
     })
   );
 
-export const TrandingTvResponseSchema = z
+export const TvListResponseSchema = z
   .object({
     page: z.number(),
     total_pages: z.number(),
     total_results: z.number(),
-    results: z.array(TrandingTvSchema),
+    results: z.array(TvSchema),
   })
   .transform(({ total_pages, total_results, ...rest }) => ({
     totalPages: total_pages,
@@ -47,5 +47,5 @@ export const TrandingTvResponseSchema = z
     ...rest,
   }));
 
-export type TrandingTv = z.infer<typeof TrandingTvSchema>;
-export type TrandingTvs = z.infer<typeof TrandingTvResponseSchema>;
+export type Tv = z.infer<typeof TvSchema>;
+export type TvList = z.infer<typeof TvListResponseSchema>;

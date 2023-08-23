@@ -6,11 +6,11 @@ import { CustomImage, Genres } from "..";
 import { Genre } from "../../models/genre-model";
 
 import "./card.scss";
-import { TrandingTv } from "../../models/tv-model";
-import { TrandingMovie } from "../../models/movie-model";
+import { Tv } from "../../models/tv-list-model";
+import { Movie } from "../../models/movie-list-model";
 
 interface CardProps {
-  info: TrandingTv | TrandingMovie;
+  info: Tv | Movie;
   srcSet:
     | {
         image: string;

@@ -14,7 +14,7 @@ const ColorfulSectionTitle = ({ children }: { children: ReactNode }) => {
                 className={`
                   colorful-section-title__substring 
                   colorful-section-title__substring--${
-                    (index + 1) % 2 === 0 ? "red" : "yellow"
+                    (index + 1) % 2 === 0 ? "white" : "teal"
                   }`}
               >
                 {word}

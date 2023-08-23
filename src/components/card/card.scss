@@ -1,15 +1,12 @@
 @import "../../styles/colors.scss";
+@import "../../styles/mixins.scss";
 
 .card {
   width: 100%;
   height: 100%;
   position: relative;
   padding: 0.2rem;
-  background: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background-color: $secondary-color;
   border-radius: 1rem;
   overflow: hidden;
 
@@ -36,9 +33,11 @@
     }
   }
 
-  &:hover {
-    .card-descr {
-      transform: translateY(0);
+  @media (hover: hover) {
+    &:hover {
+      .additional-info-hover {
+        transform: translateY(0);
+      }
     }
   }
 }
@@ -48,27 +47,103 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  padding: 1rem 0.5rem;
+  padding: 0.5rem;
   font-family: "Rajdhani", sans-serif;
 
   &__title {
     margin: 0;
     margin-bottom: auto;
-    font-size: 1rem;
-    font-weight: 600;
+    font-size: 1.1rem;
+    font-weight: 500;
     text-align: center;
-    color: $primary-color;
   }
 
   &__release-year {
     margin-top: auto;
     font-family: inherit;
-    font-weight: 500;
-    color: $primary-color;
+    font-weight: 300;
     text-align: center;
+  }
+}
+
+.additional-info {
+  display: none;
+
+  &__rating {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin: 0;
+    font-size: 0.8rem;
+  }
+
+  &__icon {
+    &--star {
+      fill: $yellow;
+    }
   }
 
   .genres {
-    color: $primary-color;
+    li {
+      padding: 0;
+      border-color: transparent !important;
+    }
+  }
+}
+
+.additional-info-hover {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+  font-size: 0.8rem;
+
+  transform: translateY(100%);
+  background: linear-gradient(
+    rgba($primary-color, 0.7),
+    rgba($primary-color, 1)
+  );
+  border-radius: 1rem;
+  box-shadow: inset 0 0px 6px rgba(#fff, 0.1);
+  transition: transform 0.3s ease-in-out;
+
+  &__overview {
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 10;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  &__rating {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    span {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  &__icon {
+    margin-right: 0.2rem;
+
+    &--star {
+      fill: $yellow;
+    }
+  }
+}
+
+@include tablet {
+  .additional-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
   }
 }

@@ -13,8 +13,6 @@ const TrandingMovies = () => {
   const genresQuery = useQuery("genres", getGenres);
   const trandingMoviesQuery = useQuery("tranding-movies", getTrendingMovies);
 
-  console.log(genresQuery.data);
-
   const renderMoviesGrid = (movie: TrandingMovie) => {
     const genres = extractGenres(genresQuery.data!, movie.genreIds);
     const srcSet = getPosterPath(movie.posterPath);

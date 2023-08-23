@@ -4,5 +4,14 @@ import CustomImage from "./custom-image/custom.image";
 import PageLayout from "../layouts/page-layout/page.layout";
 import Section from "./section/section";
 import CardGrid from "./collapsible-grid/collapsible.grid";
+import Genres from "./genres/genres";
 
-export { Card, CardGrid, ScrollToTop, CustomImage, PageLayout, Section };
+export {
+  Card,
+  CardGrid,
+  ScrollToTop,
+  CustomImage,
+  PageLayout,
+  Section,
+  Genres,
+};

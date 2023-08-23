@@ -6,16 +6,16 @@
   font-size: 2rem;
   font-weight: 600;
   line-height: 1;
-  color: $yellow;
+  color: $teal;
 
   &__substring {
     font-family: inherit;
-    &--red {
-      color: $soft-red;
+    &--white {
+      color: $white;
     }
 
-    &--yellow {
-      color: $yellow;
+    &--teal {
+      color: $font-secondary;
     }
   }
 }

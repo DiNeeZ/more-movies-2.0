@@ -9,7 +9,7 @@
   &:hover,
   &:focus-within {
     .logo__icon {
-      fill: $soft-red;
+      fill: $font-primary;
       transform: rotate(360deg);
     }
 
@@ -30,22 +30,22 @@
 
   &__icon {
     font-size: 2rem;
-    fill: $yellow;
+    fill: $font-secondary;
     transition: 0.4s;
   }
 
   &__text {
     font-family: inherit;
     color: #0000;
-    background: linear-gradient(90deg, $yellow 50%, $soft-red 0) var(--_p, 100%) /
-      200% no-repeat;
+    background: linear-gradient(90deg, $font-secondary 50%, $font-primary 0)
+      var(--_p, 100%) / 200% no-repeat;
     -webkit-background-clip: text;
     background-clip: text;
     transition: 0.4s;
 
     span {
       font-family: inherit;
-      background: linear-gradient(90deg, $soft-red 50%, $yellow 0)
+      background: linear-gradient(90deg, $font-primary 50%, $font-secondary 0)
         var(--_p, 100%) / 200% no-repeat;
       -webkit-background-clip: text;
       background-clip: text;

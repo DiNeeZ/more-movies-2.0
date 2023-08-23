@@ -30,16 +30,14 @@ const genreColors: { [key: string]: string } = {
   Western: "#DEB887",
 };
 
-console.log(genreColors["Music"]);
-
 const Genres = ({ genres }: GenresProps) => {
   return (
     <ul className="genres">
       {genres.slice(0, 3).map((genre) => {
-        const backgroundColor = convertHexToRGBA(genreColors[genre.name], 0.3);
+        const borderColor = convertHexToRGBA(genreColors[genre.name], 0.8);
 
         return (
-          <li key={genre.id} style={{ backgroundColor }}>
+          <li key={genre.id} style={{ borderColor }}>
             {genre.name}
           </li>
         );

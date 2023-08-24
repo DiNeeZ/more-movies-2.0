@@ -4,7 +4,11 @@ import type { Genre } from "../models/genre-model";
 export const extractGenres = (allGenres: Genre[], genreIds: number[]) =>
   allGenres.filter((genre) => genreIds?.includes(genre.id));
 
-export const getImageUrl = (size: number, imgPath: string) => {
+export const getImageUrl = (size: number | "original", imgPath: string) => {
+  if (typeof size !== "number") {
+    return `${BASE_IMAGES}${size}${imgPath}`;
+  }
+
   return `${BASE_IMAGES}w${size}${imgPath}`;
 };
 
@@ -17,12 +21,15 @@ export const getPosterPath = (path: string | undefined) => {
   };
 };
 
-export const getBackdropPath = (path: string | undefined) => {
+export const getBackdropPath = (
+  path: string | undefined,
+  original?: "original"
+) => {
   if (!path) return undefined;
 
   return {
     preview: getImageUrl(300, path),
-    image: getImageUrl(1280, path),
+    image: getImageUrl(original ? "original" : 1280, path),
   };
 };
 
@@ -51,4 +58,8 @@ export const convertHexToRGBA = (hexCode: string, opacity = 1) => {
   }
 
   return `rgba(${r},${g},${b},${opacity})`;
+};
+
+export const shuffleArray = (array: Array<unknown>) => {
+  return [...array].sort(() => 0.5 - Math.random());
 };

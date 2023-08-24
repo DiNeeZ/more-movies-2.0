@@ -6,7 +6,7 @@
   color: $font-primary;
   text-align: center;
   background-color: $primary-color;
-  box-shadow: 0px -3px 10px 0px rgba($dark-color, 0.75);
+  box-shadow: 0px -1px 2px 0px rgba($dark-color, 0.75);
   z-index: 10;
 
   &__container {
@@ -43,6 +43,12 @@
   }
 }
 
+@include small-tablet {
+  .footer {
+    padding: 0rem 0 0.5rem;
+  }
+}
+
 @include mobile {
   .footer {
     &__container {
@@ -51,6 +57,10 @@
 
     &__right {
       flex-direction: column;
+    }
+
+    &__center {
+      font-size: 0.75rem;
     }
   }
 }

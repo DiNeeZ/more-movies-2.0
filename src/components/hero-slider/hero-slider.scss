@@ -1,0 +1,38 @@
+@import "../../styles/mixins.scss";
+@import "../../styles/colors.scss";
+
+.hero-slider {
+  position: relative;
+
+  &__item {
+    aspect-ratio: 5/2;
+  }
+
+  .swiper-pagination {
+    display: none;
+
+    .swiper-pagination-bullet {
+      background-color: $font-secondary;
+    }
+  }
+}
+
+@include small-tablet {
+  .hero-slider {
+    &__item {
+      aspect-ratio: 5/3;
+    }
+
+    .swiper-pagination {
+      display: block;
+    }
+  }
+}
+
+@include mobile {
+  .hero-slider {
+    &__item {
+      aspect-ratio: 5/4;
+    }
+  }
+}

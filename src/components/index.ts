@@ -5,6 +5,7 @@ import PageLayout from "../layouts/page-layout/page.layout";
 import Section from "./section/section";
 import CardGrid from "./collapsible-grid/collapsible.grid";
 import Genres from "./genres/genres";
+import HeroSlider from "./hero-slider/hero-slider";
 
 export {
   Card,
@@ -14,4 +15,5 @@ export {
   PageLayout,
   Section,
   Genres,
+  HeroSlider,
 };

@@ -1,0 +1,42 @@
+@import "../../../styles/mixins.scss";
+@import "../../../styles/colors.scss";
+
+.trailer-btn {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  border: none;
+  gap: 0.6rem;
+  padding: 0.75rem 1rem;
+  color: $font-primary;
+  background-color: rgba($font-secondary, 0.5);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out;
+
+  &:hover {
+    background-color: rgba($font-secondary, 0.4);
+  }
+
+  svg {
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+@include small-tablet {
+  .trailer-btn {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+  }
+}
+
+@include mobile {
+  .trailer-btn {
+    padding: 0.25rem 0.5rem;
+
+    &__text {
+      display: none;
+    }
+  }
+}

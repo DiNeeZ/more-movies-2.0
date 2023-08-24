@@ -6,6 +6,7 @@ import Section from "./section/section";
 import CardGrid from "./collapsible-grid/collapsible.grid";
 import Genres from "./genres/genres";
 import HeroSlider from "./hero-slider/hero-slider";
+import Modal from "./modal/modal";
 
 export {
   Card,
@@ -16,4 +17,5 @@ export {
   Section,
   Genres,
   HeroSlider,
+  Modal,
 };

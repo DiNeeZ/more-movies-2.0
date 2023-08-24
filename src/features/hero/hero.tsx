@@ -2,7 +2,7 @@ import { Fragment, useEffect, useState } from "react";
 import { useQuery } from "react-query";
 
 import { getGenres, getUpcoming } from "../../api/tmdb";
-import { CustomImage, Genres, HeroSlider } from "../../components";
+import { CustomImage, Genres, HeroSlider, Modal } from "../../components";
 import { PlayVideoBtn } from "../../components/UI";
 import {
   extractGenres,
@@ -11,9 +11,50 @@ import {
 } from "../../utils/helpers";
 import { Movie } from "../../models/movie-list-model";
 
-import "swiper/css";
-import "swiper/css/navigation";
 import "./hero.scss";
+import { Genre } from "../../models/genre-model";
+
+interface HeroContentProps {
+  movie: Movie;
+  genres: Genre[];
+  backdrop:
+    | {
+        preview: string;
+        image: string;
+      }
+    | undefined;
+}
+
+const HeroContent = (props: HeroContentProps) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  return (
+    <>
+      <div className="upcoming-movies__image-wrapper">
+        <CustomImage src={props.backdrop} alt={props.movie.title} />
+      </div>
+      <div className="container upcoming-movies__content-container">
+        <div className="upcoming-movies__content">
+          <div className="upcoming-movies__text">
+            <h2 className="upcoming-movies__title">{props.movie.title}</h2>
+            <Genres genres={props.genres} />
+          </div>
+          <PlayVideoBtn handleClick={() => setIsModalOpen(true)} />
+          {isModalOpen && (
+            <Modal handleClose={() => setIsModalOpen(false)}>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Perspiciatis autem sunt unde facilis velit nemo hic.
+                Reprehenderit, tempore dolore iste error earum quaerat
+                consequuntur quibusdam corrupti, a vitae necessitatibus ipsa.
+              </p>
+            </Modal>
+          )}
+        </div>
+      </div>
+    </>
+  );
+};
 
 const Hero = () => {
   const genresQuery = useQuery("genres", getGenres);
@@ -59,18 +100,11 @@ const Hero = () => {
             const backdrop = getBackdropPath(movie.backdropPath, "original");
             return (
               <Fragment key={movie.id}>
-                <div className="upcoming-movies__image-wrapper">
-                  <CustomImage src={backdrop} alt={movie.title} />
-                </div>
-                <div className="container upcoming-movies__content-container">
-                  <div className="upcoming-movies__content">
-                    <div className="upcoming-movies__text">
-                      <h2 className="upcoming-movies__title">{movie.title}</h2>
-                      <Genres genres={genres} />
-                    </div>
-                    <PlayVideoBtn />
-                  </div>
-                </div>
+                <HeroContent
+                  genres={genres}
+                  backdrop={backdrop}
+                  movie={movie}
+                />
               </Fragment>
             );
           })}

@@ -4,6 +4,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 import { SliderNavButtons } from "../UI";
 
+import "swiper/css";
+import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "./hero-slider.scss";
 

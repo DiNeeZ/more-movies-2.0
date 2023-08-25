@@ -2,7 +2,13 @@ import { Fragment, useEffect, useState } from "react";
 import { useQuery } from "react-query";
 
 import { getGenres, getUpcoming } from "../../api/tmdb";
-import { CustomImage, Genres, HeroSlider, Modal } from "../../components";
+import {
+  CustomImage,
+  Genres,
+  HeroSlider,
+  Modal,
+  Video,
+} from "../../components";
 import { PlayVideoBtn } from "../../components/UI";
 import {
   extractGenres,
@@ -10,9 +16,8 @@ import {
   shuffleArray,
 } from "../../utils/helpers";
 import { Movie } from "../../models/movie-list-model";
-
-import "./hero.scss";
 import { Genre } from "../../models/genre-model";
+import "./hero.scss";
 
 interface HeroContentProps {
   movie: Movie;
@@ -42,12 +47,7 @@ const HeroContent = (props: HeroContentProps) => {
           <PlayVideoBtn handleClick={() => setIsModalOpen(true)} />
           {isModalOpen && (
             <Modal handleClose={() => setIsModalOpen(false)}>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Perspiciatis autem sunt unde facilis velit nemo hic.
-                Reprehenderit, tempore dolore iste error earum quaerat
-                consequuntur quibusdam corrupti, a vitae necessitatibus ipsa.
-              </p>
+              <Video />
             </Modal>
           )}
         </div>
@@ -96,6 +96,7 @@ const Hero = () => {
       <section className="upcoming-movies">
         <HeroSlider>
           {movies.map((movie) => {
+            console.log(movie);
             const genres = extractGenres(genresQuery.data!, movie.genreIds);
             const backdrop = getBackdropPath(movie.backdropPath, "original");
             return (

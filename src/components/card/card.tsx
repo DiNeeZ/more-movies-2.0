@@ -5,9 +5,10 @@ import { AiFillStar, AiOutlineUser } from "react-icons/ai";
 import { CustomImage, Genres } from "..";
 import { Genre } from "../../models/genre-model";
 
-import "./card.scss";
 import { Tv } from "../../models/tv-list-model";
 import { Movie } from "../../models/movie-list-model";
+
+import "./card.scss";
 
 interface CardProps {
   info: Tv | Movie;

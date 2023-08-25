@@ -3,6 +3,8 @@ import ColorfulSectionTitle from "./colorful-section-title/colorful.section.titl
 import MoreLessBtn from "./more-less-btn/more.less.btn";
 import SliderNavButtons from "./slider-nav-buttons/slider-nav-buttons";
 import PlayVideoBtn from "./play-video-btn/play-video-btn";
+import SpinnerBounce from "./spinner-bounce/spinner-bounce";
+import ErrorIndicator from "./error-indicator/error-indicator";
 
 export {
   Logo,
@@ -10,4 +12,6 @@ export {
   MoreLessBtn,
   SliderNavButtons,
   PlayVideoBtn,
+  SpinnerBounce,
+  ErrorIndicator,
 };

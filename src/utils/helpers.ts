@@ -63,3 +63,16 @@ export const convertHexToRGBA = (hexCode: string, opacity = 1) => {
 export const shuffleArray = (array: Array<unknown>) => {
   return [...array].sort(() => 0.5 - Math.random());
 };
+
+export const snakeToCamel = (str: string) =>
+  str.replace(/[^a-zA-Z0-9]+(.)/g, (_, chr) => chr.toUpperCase());
+
+export const renameSnakeKeysToCamel = (obj: object) => {
+  const entries = Object.keys(obj).map((key) => {
+    const newKey = key.includes("_") ? snakeToCamel(key) : key;
+
+    return { [newKey]: obj[key as keyof typeof obj] };
+  });
+
+  return Object.assign({}, ...entries);
+};

@@ -5,6 +5,7 @@ import {
 } from "../models/movie-list-model";
 import { GenreResponse } from "../models/genre-model";
 import { TvListResponseSchema, type TvList } from "../models/tv-list-model";
+import { TrailerResponse } from "../models/trailers-model";
 
 const BASE_URL = "https://api.themoviedb.org/3/";
 export const BASE_IMAGES = "https://image.tmdb.org/t/p/";
@@ -42,4 +43,12 @@ export const getUpcoming = async () => {
   );
 
   return MovieListResponseSchema.parse(response.data);
+};
+
+export const getTrailers = async ({ id, mediaType }: ITrailersRequestInfo) => {
+  const response = await MOVIE_API.get<TrailerResponse>(
+    `${mediaType}/${id}/videos?api_key=${API_KEY}`
+  );
+
+  console.log(response.data.results);
 };

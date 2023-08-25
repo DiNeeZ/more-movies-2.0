@@ -7,6 +7,7 @@ import CardGrid from "./collapsible-grid/collapsible.grid";
 import Genres from "./genres/genres";
 import HeroSlider from "./hero-slider/hero-slider";
 import Modal from "./modal/modal";
+import Video from "./video/video";
 
 export {
   Card,
@@ -18,4 +19,5 @@ export {
   Genres,
   HeroSlider,
   Modal,
+  Video,
 };

@@ -76,3 +76,19 @@ export const renameSnakeKeysToCamel = (obj: object) => {
 
   return Object.assign({}, ...entries);
 };
+
+export const genericizeMediaShape = (obj: object) => {
+  const entries = Object.keys(obj).map((key) => {
+    if (key === "name") {
+      return { ["title"]: obj[key as keyof typeof obj] };
+    }
+
+    if (key === "firstAirDate") {
+      return { ["releaseDate"]: obj[key as keyof typeof obj] };
+    }
+
+    return { [key]: obj[key as keyof typeof obj] };
+  });
+
+  return Object.assign({}, ...entries);
+};

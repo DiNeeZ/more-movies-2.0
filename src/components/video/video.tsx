@@ -3,9 +3,16 @@ import { ImFilm } from "react-icons/im";
 import { MdNotInterested } from "react-icons/md";
 import { FaSadTear } from "react-icons/fa";
 
+import { getTrailers } from "../../api/tmdb";
 import { ErrorIndicator, SpinnerBounce } from "../UI";
 
 import "./video.scss";
+import { useQuery } from "react-query";
+
+interface VideoProps {
+  id: number;
+  mediaType: "movie" | "tv";
+}
 
 const VideoNotAvaliable = () => {
   return (
@@ -64,7 +71,13 @@ const VideoNav = (props) => {
   );
 };
 
-const Video = () => {
+const Video = ({ id, mediaType }: VideoProps) => {
+  const trailersQuery = useQuery("trailers", () =>
+    getTrailers({ id, mediaType })
+  );
+
+  console.log(trailersQuery.data);
+
   return <div>Video</div>;
 };
 

@@ -4,14 +4,12 @@ import { AiFillStar, AiOutlineUser } from "react-icons/ai";
 
 import { CustomImage, Genres } from "..";
 import { Genre } from "../../models/genre-model";
-
-import { Tv } from "../../models/tv-list-model";
-import { Movie } from "../../models/movie-list-model";
+import { Media } from "../../models/media-model";
 
 import "./card.scss";
 
 interface CardProps {
-  info: Tv | Movie;
+  info: Media;
   srcSet:
     | {
         image: string;

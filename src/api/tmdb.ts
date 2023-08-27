@@ -6,6 +6,7 @@ import {
 import { GenreResponse } from "../models/genre-model";
 import { TvListResponseSchema, type TvList } from "../models/tv-list-model";
 import { TrailerResponse } from "../models/trailers-model";
+import { genericizeMediaShape, renameSnakeKeysToCamel } from "../utils/helpers";
 
 const BASE_URL = "https://api.themoviedb.org/3/";
 export const BASE_IMAGES = "https://image.tmdb.org/t/p/";
@@ -26,7 +27,15 @@ export const getTrendingMovies = async () => {
     `trending/movie/day?api_key=${API_KEY}`
   );
 
-  return MovieListResponseSchema.parse(response.data);
+  const transformedResponse = response.data.results.map((result) =>
+    renameSnakeKeysToCamel(result)
+  );
+
+  return MovieListResponseSchema.parse({
+    ...response.data,
+    results: transformedResponse,
+    mediaType: "movie",
+  });
 };
 
 export const getTrendingTvs = async () => {
@@ -34,7 +43,16 @@ export const getTrendingTvs = async () => {
     `trending/tv/day?api_key=${API_KEY}`
   );
 
-  return TvListResponseSchema.parse(response.data);
+  const transformedResponse = response.data.results.map((result) => {
+    const camelCaseKeys = renameSnakeKeysToCamel(result);
+    return genericizeMediaShape(camelCaseKeys);
+  });
+
+  return TvListResponseSchema.parse({
+    ...response.data,
+    results: transformedResponse,
+    mediaType: "tv",
+  });
 };
 
 export const getUpcoming = async () => {
@@ -42,7 +60,15 @@ export const getUpcoming = async () => {
     `movie/upcoming?api_key=${API_KEY}&language=en-US&page=1`
   );
 
-  return MovieListResponseSchema.parse(response.data);
+  const transformedResponse = response.data.results.map((result) =>
+    renameSnakeKeysToCamel(result)
+  );
+
+  return MovieListResponseSchema.parse({
+    ...response.data,
+    results: transformedResponse,
+    mediaType: "movie",
+  });
 };
 
 export const getTrailers = async ({ id, mediaType }: ITrailersRequestInfo) => {

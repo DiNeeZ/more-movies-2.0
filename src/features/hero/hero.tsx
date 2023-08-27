@@ -15,12 +15,12 @@ import {
   getBackdropPath,
   shuffleArray,
 } from "../../utils/helpers";
-import { Movie } from "../../models/movie-list-model";
 import { Genre } from "../../models/genre-model";
+import type { Media } from "../../models/media-model";
 import "./hero.scss";
 
 interface HeroContentProps {
-  movie: Movie;
+  movie: Media;
   genres: Genre[];
   backdrop:
     | {
@@ -47,7 +47,7 @@ const HeroContent = (props: HeroContentProps) => {
           <PlayVideoBtn handleClick={() => setIsModalOpen(true)} />
           {isModalOpen && (
             <Modal handleClose={() => setIsModalOpen(false)}>
-              <Video />
+              <Video id={props.movie.id} mediaType={props.movie.mediaType} />
             </Modal>
           )}
         </div>
@@ -59,14 +59,16 @@ const HeroContent = (props: HeroContentProps) => {
 const Hero = () => {
   const genresQuery = useQuery("genres", getGenres);
   const upcomingQuery = useQuery("upcoming", getUpcoming);
-  const [movies, setMovies] = useState<Array<Movie>>([]);
+  const [movies, setMovies] = useState<Array<Media>>([]);
+
+  console.log(upcomingQuery.data?.results);
 
   const SLIDER_ITEMS_QTY = 5;
 
   useEffect(() => {
     if (upcomingQuery.isSuccess) {
       const slicedAndShuffledMovies = (
-        shuffleArray(upcomingQuery.data.results) as Array<Movie>
+        shuffleArray(upcomingQuery.data.results) as Array<Media>
       ).slice(0, SLIDER_ITEMS_QTY);
       setMovies(slicedAndShuffledMovies);
     }
@@ -96,7 +98,6 @@ const Hero = () => {
       <section className="upcoming-movies">
         <HeroSlider>
           {movies.map((movie) => {
-            console.log(movie);
             const genres = extractGenres(genresQuery.data!, movie.genreIds);
             const backdrop = getBackdropPath(movie.backdropPath, "original");
             return (

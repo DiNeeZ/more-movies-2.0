@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import { useQuery } from "react-query";
 
-import { getGenres, getUpcoming } from "../../api/tmdb";
+import { getGenres, getTrailers, getUpcoming } from "../../api/tmdb";
 import {
   CustomImage,
   Genres,
@@ -17,7 +17,9 @@ import {
 } from "../../utils/helpers";
 import { Genre } from "../../models/genre-model";
 import type { Media } from "../../models/media-model";
+
 import "./hero.scss";
+import { AnimatePresence } from "framer-motion";
 
 interface HeroContentProps {
   movie: Media;
@@ -33,6 +35,10 @@ interface HeroContentProps {
 const HeroContent = (props: HeroContentProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const trailersQuery = useQuery(`${props.movie.title}-trailers`, () =>
+    getTrailers({ id: props.movie.id, mediaType: props.movie.mediaType })
+  );
+
   return (
     <>
       <div className="upcoming-movies__image-wrapper">
@@ -44,12 +50,16 @@ const HeroContent = (props: HeroContentProps) => {
             <h2 className="upcoming-movies__title">{props.movie.title}</h2>
             <Genres genres={props.genres} />
           </div>
-          <PlayVideoBtn handleClick={() => setIsModalOpen(true)} />
-          {isModalOpen && (
-            <Modal handleClose={() => setIsModalOpen(false)}>
-              <Video id={props.movie.id} mediaType={props.movie.mediaType} />
-            </Modal>
+          {trailersQuery.isSuccess && !!trailersQuery.data.length && (
+            <PlayVideoBtn handleClick={() => setIsModalOpen(true)} />
           )}
+          <AnimatePresence>
+            {isModalOpen && trailersQuery.isSuccess && (
+              <Modal handleClose={() => setIsModalOpen(false)}>
+                <Video trailers={trailersQuery.data} />
+              </Modal>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </>
@@ -60,8 +70,6 @@ const Hero = () => {
   const genresQuery = useQuery("genres", getGenres);
   const upcomingQuery = useQuery("upcoming", getUpcoming);
   const [movies, setMovies] = useState<Array<Media>>([]);
-
-  console.log(upcomingQuery.data?.results);
 
   const SLIDER_ITEMS_QTY = 5;
 

@@ -1,37 +1,20 @@
+import { useState } from "react";
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
-import { ImFilm } from "react-icons/im";
-import { MdNotInterested } from "react-icons/md";
-import { FaSadTear } from "react-icons/fa";
 
-import { getTrailers } from "../../api/tmdb";
-import { ErrorIndicator, SpinnerBounce } from "../UI";
+import { Trailer } from "../../models/trailers-model";
 
 import "./video.scss";
-import { useQuery } from "react-query";
+import Player from "../player/player";
 
-interface VideoProps {
-  id: number;
-  mediaType: "movie" | "tv";
+interface VideoNavProps {
+  trailers: Array<Trailer>;
+  currentVideo: number;
+  handleLeftClick: () => void;
+  handleRightClick: () => void;
+  handleDotClick: (index: number) => void;
 }
 
-const VideoNotAvaliable = () => {
-  return (
-    <div className="not-avaliable">
-      <div className="not-avaliable__wrapper">
-        <div className="not-avaliable__content">
-          <div className="not-avaliable__icon">
-            <ImFilm className="icon-film" />
-            <MdNotInterested className="icon-not" />
-          </div>
-          <div className="not-avaliable__text">Video Not Avaliable</div>
-          <FaSadTear className="not-avaliable__sad" />
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const VideoNav = (props) => {
+const VideoNav = (props: VideoNavProps) => {
   const {
     trailers,
     currentVideo,
@@ -71,14 +54,37 @@ const VideoNav = (props) => {
   );
 };
 
-const Video = ({ id, mediaType }: VideoProps) => {
-  const trailersQuery = useQuery("trailers", () =>
-    getTrailers({ id, mediaType })
+const Video = ({ trailers }: { trailers: Array<Trailer> }) => {
+  const [currentVideo, setCurrentVideo] = useState(0);
+
+  const handleLeftClick = () => {
+    if (currentVideo > 0) {
+      setCurrentVideo((prevState) => prevState - 1);
+    }
+  };
+
+  const handleRightClick = () => {
+    if (currentVideo < trailers.length - 1) {
+      setCurrentVideo((prevState) => prevState + 1);
+    }
+  };
+
+  const handleDotClick = (index: number) => setCurrentVideo(index);
+
+  return (
+    <div className="video">
+      <Player trailer={trailers[currentVideo]} />
+      {trailers.length > 1 && (
+        <VideoNav
+          trailers={trailers}
+          currentVideo={currentVideo}
+          handleLeftClick={handleLeftClick}
+          handleRightClick={handleRightClick}
+          handleDotClick={handleDotClick}
+        />
+      )}
+    </div>
   );
-
-  console.log(trailersQuery.data);
-
-  return <div>Video</div>;
 };
 
 export default Video;

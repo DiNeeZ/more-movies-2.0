@@ -1,24 +1,23 @@
+@import "../../styles/mixins.scss";
 @import "../../styles/colors.scss";
 
 // VIDEO
 
 .video {
-  position: relative;
   width: 100%;
-  padding-bottom: 56.25%;
-  height: 0;
+  aspect-ratio: 16/9;
+  display: flex;
+  justify-content: stretch;
+  align-items: stretch;
 
   &__frame {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
+    border: 0;
   }
 }
 
 // VIDEO NAVIGATION
-
 .video-nav {
   &__btn {
     position: absolute;
@@ -39,7 +38,7 @@
     }
 
     &:hover:not(:disabled) {
-      color: $secondary-color;
+      color: $font-secondary;
     }
 
     &--left {
@@ -82,67 +81,33 @@
     cursor: pointer;
 
     &:hover:not(.video-nav__dot--current) {
-      background-color: $yellow;
+      background-color: darken($font-secondary, 10);
     }
 
     &--current {
-      background-color: $secondary-color;
+      background-color: $font-secondary;
     }
   }
 }
 
-// VIDEO NOT AVAILABLE
+@include mobile {
+  .video-nav {
+    &__btn {
+      top: initial;
+      bottom: 0;
+      transform: translateY(90%);
 
-.not-avaliable {
-  width: 100%;
-  height: 0;
-  padding-bottom: 56.25%;
-  background-color: $primary-color;
+      &--left {
+        left: 0;
+      }
 
-  &__wrapper {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    inset: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  &__content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  &__icon {
-    position: relative;
-
-    .icon-not {
-      position: relative;
-      width: 8rem;
-      height: 8rem;
-      color: $soft-red;
-      z-index: 10;
+      &--right {
+        right: 0;
+      }
     }
 
-    .icon-film {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 4rem;
-      height: 4rem;
-      transform: translate(-50%, -55%);
-      color: $yellow;
+    &__dots {
+      display: none;
     }
-  }
-
-  &__text {
-    margin-bottom: 1rem;
-  }
-
-  &__sad {
-    font-size: 3rem;
-    color: $yellow;
   }
 }

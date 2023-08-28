@@ -27,14 +27,14 @@ export const getTrendingMovies = async () => {
     `trending/movie/day?api_key=${API_KEY}`
   );
 
-  const transformedResponse = response.data.results.map((result) =>
-    renameSnakeKeysToCamel(result)
-  );
+  const transformedResponse = response.data.results.map((result) => ({
+    ...renameSnakeKeysToCamel(result),
+    mediaType: "movie",
+  }));
 
   return MovieListResponseSchema.parse({
     ...response.data,
     results: transformedResponse,
-    mediaType: "movie",
   });
 };
 
@@ -45,13 +45,15 @@ export const getTrendingTvs = async () => {
 
   const transformedResponse = response.data.results.map((result) => {
     const camelCaseKeys = renameSnakeKeysToCamel(result);
-    return genericizeMediaShape(camelCaseKeys);
+    return {
+      ...genericizeMediaShape(camelCaseKeys),
+      mediaType: "tv",
+    };
   });
 
   return TvListResponseSchema.parse({
     ...response.data,
     results: transformedResponse,
-    mediaType: "tv",
   });
 };
 
@@ -60,14 +62,14 @@ export const getUpcoming = async () => {
     `movie/upcoming?api_key=${API_KEY}&language=en-US&page=1`
   );
 
-  const transformedResponse = response.data.results.map((result) =>
-    renameSnakeKeysToCamel(result)
-  );
+  const transformedResponse = response.data.results.map((result) => ({
+    ...renameSnakeKeysToCamel(result),
+    mediaType: "movie",
+  }));
 
   return MovieListResponseSchema.parse({
     ...response.data,
     results: transformedResponse,
-    mediaType: "movie",
   });
 };
 
@@ -76,5 +78,9 @@ export const getTrailers = async ({ id, mediaType }: ITrailersRequestInfo) => {
     `${mediaType}/${id}/videos?api_key=${API_KEY}`
   );
 
-  console.log(response.data.results);
+  const onlyTrailers = response.data.results.filter(
+    (video) => video.type === "Trailer"
+  );
+
+  return onlyTrailers;
 };

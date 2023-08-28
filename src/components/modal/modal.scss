@@ -15,12 +15,11 @@
 
   &__content {
     position: relative;
-    width: 73%;
+    width: 80%;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 2rem;
-    color: #fff;
   }
 
   &__close-btn {
@@ -57,4 +56,12 @@
 .modal-exit {
   opacity: 0;
   transform: scale(0.4);
+}
+
+@include mobile {
+  .modal {
+    &__content {
+      width: 100%;
+    }
+  }
 }

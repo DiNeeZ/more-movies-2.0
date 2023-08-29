@@ -14,7 +14,7 @@ const MoreLessBtn = ({ handleClick, isOpen }: MoreLessBtnProps) => {
       onClick={handleClick}
     >
       <div className="more-less-btn__inner">
-        {!isOpen ? "See more" : "See less"}
+        {!isOpen ? "Show more" : "Show less"}
         {!isOpen ? (
           <BsChevronCompactDown className="more-less-btn__icon more-less-btn__icon--down" />
         ) : (

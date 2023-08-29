@@ -20,6 +20,7 @@ import type { Media } from "../../models/media-model";
 
 import "./hero.scss";
 import { AnimatePresence } from "framer-motion";
+import useScrollLock from "../../hooks/use-scroll-lock";
 
 interface HeroContentProps {
   movie: Media;
@@ -34,10 +35,21 @@ interface HeroContentProps {
 
 const HeroContent = (props: HeroContentProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { lockScroll, unlockScroll } = useScrollLock();
 
   const trailersQuery = useQuery(`${props.movie.title}-trailers`, () =>
     getTrailers({ id: props.movie.id, mediaType: props.movie.mediaType })
   );
+
+  const modalVideoOpen = () => {
+    setIsModalOpen(true);
+    lockScroll();
+  };
+
+  const modalVideoClose = () => {
+    setIsModalOpen(false);
+    unlockScroll();
+  };
 
   return (
     <>
@@ -51,11 +63,11 @@ const HeroContent = (props: HeroContentProps) => {
             <Genres genres={props.genres} />
           </div>
           {trailersQuery.isSuccess && !!trailersQuery.data.length && (
-            <PlayVideoBtn handleClick={() => setIsModalOpen(true)} />
+            <PlayVideoBtn handleClick={modalVideoOpen} />
           )}
           <AnimatePresence>
             {isModalOpen && trailersQuery.isSuccess && (
-              <Modal handleClose={() => setIsModalOpen(false)}>
+              <Modal handleClose={modalVideoClose}>
                 <Video trailers={trailersQuery.data} />
               </Modal>
             )}

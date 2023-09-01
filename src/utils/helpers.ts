@@ -1,9 +1,12 @@
 import { BASE_IMAGES } from "../api/tmdb";
 import type { Genre } from "../models/genre-model";
 
+// Extract Genres
 export const extractGenres = (allGenres: Genre[], genreIds: number[]) =>
   allGenres.filter((genre) => genreIds?.includes(genre.id));
+// --------------------------------------------------------------------------------
 
+// Get Image Url
 export const getImageUrl = (size: number | "original", imgPath: string) => {
   if (typeof size !== "number") {
     return `${BASE_IMAGES}${size}${imgPath}`;
@@ -11,7 +14,9 @@ export const getImageUrl = (size: number | "original", imgPath: string) => {
 
   return `${BASE_IMAGES}w${size}${imgPath}`;
 };
+// --------------------------------------------------------------------------------
 
+// Get Poster Path
 export const getPosterPath = (path: string | undefined) => {
   if (!path) return undefined;
 
@@ -20,7 +25,9 @@ export const getPosterPath = (path: string | undefined) => {
     image: getImageUrl(342, path),
   };
 };
+// --------------------------------------------------------------------------------
 
+// Get Backdrop Path
 export const getBackdropPath = (
   path: string | undefined,
   original?: "original"
@@ -32,7 +39,9 @@ export const getBackdropPath = (
     image: getImageUrl(original ? "original" : 1280, path),
   };
 };
+// --------------------------------------------------------------------------------
 
+// Get Profile Path
 export const getProfilePath = (path: string | undefined) => {
   if (!path) return undefined;
 
@@ -41,7 +50,9 @@ export const getProfilePath = (path: string | undefined) => {
     image: getImageUrl(185, path),
   };
 };
+// --------------------------------------------------------------------------------
 
+// Convert Hex To RGBA
 export const convertHexToRGBA = (hexCode: string, opacity = 1) => {
   let hex = hexCode.replace("#", "");
 
@@ -59,24 +70,45 @@ export const convertHexToRGBA = (hexCode: string, opacity = 1) => {
 
   return `rgba(${r},${g},${b},${opacity})`;
 };
+// --------------------------------------------------------------------------------
 
+// Shuffle Array
 export const shuffleArray = (array: Array<unknown>) => {
   return [...array].sort(() => 0.5 - Math.random());
 };
+// --------------------------------------------------------------------------------
 
+// Snake To Camel
 export const snakeToCamel = (str: string) =>
   str.replace(/[^a-zA-Z0-9]+(.)/g, (_, chr) => chr.toUpperCase());
+// --------------------------------------------------------------------------------
 
+// Rename Snake Keys To Camel
 export const renameSnakeKeysToCamel = (obj: object) => {
   const entries = Object.keys(obj).map((key) => {
     const newKey = key.includes("_") ? snakeToCamel(key) : key;
+
+    const value = obj[key as keyof typeof obj] as [];
+    const isValueArray = Array.isArray(value) && !!value.length;
+    const isArrayOfObjects =
+      isValueArray && value.every((val) => typeof val === "object");
+
+    if (isArrayOfObjects) {
+      const camelcasedValue: typeof obj = (value as []).map((val) =>
+        renameSnakeKeysToCamel(val)
+      );
+
+      return { [newKey]: camelcasedValue };
+    }
 
     return { [newKey]: obj[key as keyof typeof obj] };
   });
 
   return Object.assign({}, ...entries);
 };
+// --------------------------------------------------------------------------------
 
+// Genericize Media Shape
 export const genericizeMediaShape = (obj: object) => {
   const entries = Object.keys(obj).map((key) => {
     if (key === "name") {
@@ -92,3 +124,4 @@ export const genericizeMediaShape = (obj: object) => {
 
   return Object.assign({}, ...entries);
 };
+// --------------------------------------------------------------------------------

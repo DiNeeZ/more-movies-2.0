@@ -1,5 +1,6 @@
 import { Logo } from "../../components/UI";
 import TMDBlogo from "../../assets/images/tmdb.svg";
+
 import "./footer.scss";
 
 const Footer = () => {

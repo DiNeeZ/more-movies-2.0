@@ -1,5 +1,6 @@
 import { Fragment, useEffect, useState } from "react";
 import { useQuery } from "react-query";
+import { AnimatePresence } from "framer-motion";
 
 import { getGenres, getTrailers, getUpcoming } from "../../api/tmdb";
 import {
@@ -17,10 +18,9 @@ import {
 } from "../../utils/helpers";
 import { Genre } from "../../models/genre-model";
 import type { Media } from "../../models/media-model";
+import useScrollLock from "../../hooks/use-scroll-lock";
 
 import "./hero.scss";
-import { AnimatePresence } from "framer-motion";
-import useScrollLock from "../../hooks/use-scroll-lock";
 
 interface HeroContentProps {
   movie: Media;

@@ -1,4 +1,5 @@
 import { Hero, TrandingMovies, TrandingTvs } from "../../features";
+import PopularPersons from "../../features/popular-persons/popular-persons";
 import "./home.scss";
 
 const Home = () => {
@@ -7,6 +8,7 @@ const Home = () => {
       <Hero />
       <TrandingMovies />
       <TrandingTvs />
+      <PopularPersons />
     </main>
   );
 };

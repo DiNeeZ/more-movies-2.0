@@ -7,6 +7,11 @@ import { GenreResponse } from "../models/genre-model";
 import { TvListResponseSchema, type TvList } from "../models/tv-list-model";
 import { TrailerResponse } from "../models/trailers-model";
 import { genericizeMediaShape, renameSnakeKeysToCamel } from "../utils/helpers";
+import {
+  Person,
+  PersonResponse,
+  PersonResponseSchema,
+} from "../models/person-model";
 
 const BASE_URL = "https://api.themoviedb.org/3/";
 export const BASE_IMAGES = "https://image.tmdb.org/t/p/";
@@ -29,7 +34,6 @@ export const getTrendingMovies = async () => {
 
   const transformedResponse = response.data.results.map((result) => ({
     ...renameSnakeKeysToCamel(result),
-    mediaType: "movie",
   }));
 
   return MovieListResponseSchema.parse({
@@ -47,7 +51,6 @@ export const getTrendingTvs = async () => {
     const camelCaseKeys = renameSnakeKeysToCamel(result);
     return {
       ...genericizeMediaShape(camelCaseKeys),
-      mediaType: "tv",
     };
   });
 
@@ -83,4 +86,26 @@ export const getTrailers = async ({ id, mediaType }: ITrailersRequestInfo) => {
   );
 
   return onlyTrailers;
+};
+
+export const getPopularPersons = async () => {
+  const response = await MOVIE_API.get<PersonResponse>(
+    `person/popular?api_key=${API_KEY}&language=en-US`
+  );
+
+  const transformedResponse = response.data.results.map((result) =>
+    renameSnakeKeysToCamel(result)
+  );
+
+  const generalizedResponse = transformedResponse.map((person: Person) => ({
+    ...person,
+    knownFor: person.knownFor.map((movie) => genericizeMediaShape(movie)),
+  }));
+
+  console.log(generalizedResponse);
+
+  return PersonResponseSchema.parse({
+    ...response.data,
+    results: generalizedResponse,
+  });
 };

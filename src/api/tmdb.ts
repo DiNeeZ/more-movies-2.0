@@ -102,8 +102,6 @@ export const getPopularPersons = async () => {
     knownFor: person.knownFor.map((movie) => genericizeMediaShape(movie)),
   }));
 
-  console.log(generalizedResponse);
-
   return PersonResponseSchema.parse({
     ...response.data,
     results: generalizedResponse,

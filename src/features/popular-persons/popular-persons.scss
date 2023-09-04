@@ -1,0 +1,51 @@
+@import "../../styles/mixins.scss";
+@import "../../styles/colors.scss";
+
+.popular-persons {
+  position: relative;
+  margin-top: -3.5rem;
+  width: 100%;
+
+  &__slide {
+    height: auto;
+  }
+
+  .swiper-wrapper {
+    padding-top: 4rem;
+  }
+
+  .slider-nav {
+    position: absolute;
+    width: 10rem;
+    height: auto;
+    inset: initial;
+    top: 0;
+    right: 0;
+  }
+
+  .swiper-pagination {
+    visibility: hidden;
+    opacity: 0;
+  }
+}
+
+@include small-tablet {
+  .popular-persons {
+    .swiper-wrapper {
+      padding-bottom: 2rem;
+    }
+
+    .swiper-pagination {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .swiper-pagination-bullet {
+      background-color: rgba($font-primary, 0.3);
+    }
+
+    .swiper-pagination-bullet-active {
+      background-color: $font-secondary;
+    }
+  }
+}

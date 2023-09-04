@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 
-import { Home, Details } from "./routes";
+import { Home, Details, Person } from "./routes";
 import { PageLayout, ScrollToTop } from "./components";
 
 import "./styles/global.scss";
@@ -16,6 +16,7 @@ const App = () => {
           />
           <Route index element={<Home />} />
           <Route path="/:mediaType/:id" element={<Details />} />
+          <Route path="/person/:id" element={<Person />} />
         </Route>
       </Routes>
     </ScrollToTop>

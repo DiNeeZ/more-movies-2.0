@@ -8,6 +8,7 @@ import Genres from "./genres/genres";
 import HeroSlider from "./hero-slider/hero-slider";
 import Modal from "./modal/modal";
 import Video from "./video/video";
+import PersonLink from "./person-link/person-link";
 
 export {
   Card,
@@ -20,4 +21,5 @@ export {
   HeroSlider,
   Modal,
   Video,
+  PersonLink,
 };

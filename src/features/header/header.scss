@@ -2,12 +2,15 @@
 @import "../../styles/mixins.scss";
 
 .header {
-  position: absolute;
-  width: 100%;
   padding: 0.25rem 0;
   background-color: rgba($primary-color, 0.7);
   box-shadow: 0px 1px 2px 0px rgba($dark-color, 0.75);
-  z-index: 10;
+
+  &--absolute {
+    position: absolute;
+    width: 100%;
+    z-index: 10;
+  }
 
   &__container {
     display: flex;

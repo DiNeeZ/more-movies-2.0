@@ -87,8 +87,8 @@ const Hero = () => {
 
   useEffect(() => {
     if (upcomingQuery.isSuccess) {
-      const slicedAndShuffledMovies = (
-        shuffleArray(upcomingQuery.data.results) as Array<Media>
+      const slicedAndShuffledMovies = shuffleArray<Media>(
+        upcomingQuery.data.results
       ).slice(0, SLIDER_ITEMS_QTY);
       setMovies(slicedAndShuffledMovies);
     }

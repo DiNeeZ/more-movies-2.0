@@ -73,7 +73,7 @@ export const convertHexToRGBA = (hexCode: string, opacity = 1) => {
 // --------------------------------------------------------------------------------
 
 // Shuffle Array
-export const shuffleArray = (array: Array<unknown>) => {
+export const shuffleArray = <T>(array: Array<T>): Array<T> => {
   return [...array].sort(() => 0.5 - Math.random());
 };
 // --------------------------------------------------------------------------------

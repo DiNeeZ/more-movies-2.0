@@ -1,4 +1,4 @@
-import { useRef, Children, ReactNode } from "react";
+import { Children, ReactNode } from "react";
 import { Autoplay, Navigation, Pagination, A11y } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -14,9 +14,6 @@ interface HeroSliderProps {
 }
 
 const HeroSlider = ({ children }: HeroSliderProps) => {
-  const navigationPrevRef = useRef<HTMLButtonElement>(null);
-  const navigationNextRef = useRef<HTMLButtonElement>(null);
-
   return (
     <Swiper
       modules={[Autoplay, Navigation, Pagination, A11y]}
@@ -31,17 +28,10 @@ const HeroSlider = ({ children }: HeroSliderProps) => {
         pauseOnMouseEnter: true,
         disableOnInteraction: false,
       }}
-      navigation={{
-        prevEl: navigationPrevRef.current,
-        nextEl: navigationNextRef.current,
-      }}
       pagination
       className="hero-slider"
     >
-      <SliderNavButtons
-        prevRef={navigationPrevRef}
-        nextRef={navigationNextRef}
-      />
+      <SliderNavButtons loop={true} />
 
       {Children.map(children, (child) => (
         <SwiperSlide className="hero-slider__item">{child}</SwiperSlide>

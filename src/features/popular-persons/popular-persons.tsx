@@ -1,27 +1,63 @@
+import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
+import { Navigation, A11y, Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 
-import { Section } from "../../components";
-import { ColorfulSectionTitle } from "../../components/UI";
+import { Section, PersonLink } from "../../components";
+import { ColorfulSectionTitle, SliderNavButtons } from "../../components/UI";
 import { getPopularPersons } from "../../api/tmdb";
+import { shuffleArray } from "../../utils/helpers";
+import type { Person } from "../../models/person-model";
 
 import "./popular-persons.scss";
 
 const PopularPersons = () => {
   const popularPersonsQuery = useQuery("popular-persons", getPopularPersons);
+  const [persons, setPersons] = useState<Array<Person>>([]);
 
-  if (popularPersonsQuery.isSuccess)
+  useEffect(() => {
+    if (popularPersonsQuery.isSuccess) {
+      setPersons(shuffleArray<Person>(popularPersonsQuery.data.results));
+    }
+  }, [popularPersonsQuery.data?.results, popularPersonsQuery.isSuccess]);
+
+  if (popularPersonsQuery.isSuccess) {
     return (
       <Section className="popular-persons-section">
         <ColorfulSectionTitle>Popular Persons</ColorfulSectionTitle>
-        {popularPersonsQuery.data.results.map((person) => (
-          <article>
-            <h3>{person.name}</h3>
-          </article>
-        ))}
+        <Swiper
+          modules={[Navigation, A11y, Pagination]}
+          slidesPerGroup={3}
+          slidesPerView={2}
+          spaceBetween={20}
+          pagination={true}
+          speed={600}
+          breakpoints={{
+            577: {
+              slidesPerView: 3,
+            },
+            768: {
+              slidesPerView: 4,
+              pagination: {
+                enabled: false,
+              },
+            },
+            1025: {
+              slidesPerView: 6,
+            },
+          }}
+          className="popular-persons"
+        >
+          <SliderNavButtons />
+          {persons.map((person) => (
+            <SwiperSlide key={person.id} className="popular-persons__slide">
+              <PersonLink person={person} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </Section>
     );
+  }
 };
 
 export default PopularPersons;
-
-// person/popular?api_key=${API_KEY}&language=en-US

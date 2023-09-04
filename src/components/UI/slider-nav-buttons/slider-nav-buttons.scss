@@ -28,6 +28,26 @@
     z-index: 1;
     outline: none;
 
+    &:disabled {
+      opacity: 0.5;
+
+      &:focus {
+        svg {
+          fill: font-secondary;
+        }
+      }
+
+      &:hover {
+        svg {
+          fill: $font-secondary;
+        }
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+
     &:focus {
       svg {
         fill: darken($font-secondary, 20);

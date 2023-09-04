@@ -5,7 +5,7 @@ export const MediaSchema = z.object({
   title: z.string(),
   overview: z.string(),
   posterPath: z.string(),
-  backdropPath: z.string(),
+  backdropPath: z.string().optional(),
   mediaType: z.union([z.literal("movie"), z.literal("tv")]),
   genreIds: z.number().array(),
   releaseDate: z.string(),

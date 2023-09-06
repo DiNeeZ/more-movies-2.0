@@ -21,6 +21,16 @@ const PopularPersons = () => {
     }
   }, [popularPersonsQuery.data?.results, popularPersonsQuery.isSuccess]);
 
+  if (popularPersonsQuery.isLoading) return <h1>Loading...</h1>;
+
+  if (popularPersonsQuery.isError) {
+    if (popularPersonsQuery.error instanceof Error) {
+      return <h1>{popularPersonsQuery.error.message}</h1>;
+    } else {
+      return <h1>Something wrong happen</h1>;
+    }
+  }
+
   if (popularPersonsQuery.isSuccess) {
     return (
       <Section className="popular-persons-section">

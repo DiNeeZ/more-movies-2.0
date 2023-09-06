@@ -11,6 +11,7 @@ interface GenresProps {
 const genreColors: { [key: string]: string } = {
   Action: "#ff5733",
   Adventure: "#00aeef",
+  "Action & Adventure": "#ffa733",
   Animation: "#88c540",
   Comedy: "#ffd700",
   Crime: "#1f2a38",
@@ -24,6 +25,7 @@ const genreColors: { [key: string]: string } = {
   Mystery: "#2E8B57",
   Romance: "#FF69B4",
   "Science Fiction": "#00FFFF",
+  "Sci-Fi & Fantasy": "#1c9494",
   "TV Movie": "#FFD700",
   Thriller: "#FF6347",
   War: "#808080",

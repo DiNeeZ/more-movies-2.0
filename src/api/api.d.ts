@@ -1,4 +1,4 @@
-interface ITrailersRequestInfo {
-  id: number;
+interface GenericRequestInfo {
+  id: string;
   mediaType: "movie" | "tv";
 }

@@ -1,4 +1,5 @@
 import { Fragment, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useQuery } from "react-query";
 import { AnimatePresence } from "framer-motion";
 
@@ -38,7 +39,10 @@ const HeroContent = (props: HeroContentProps) => {
   const { lockScroll, unlockScroll } = useScrollLock();
 
   const trailersQuery = useQuery(`${props.movie.title}-trailers`, () =>
-    getTrailers({ id: props.movie.id, mediaType: props.movie.mediaType })
+    getTrailers({
+      id: String(props.movie.id),
+      mediaType: props.movie.mediaType,
+    })
   );
 
   const modalVideoOpen = () => {
@@ -59,7 +63,12 @@ const HeroContent = (props: HeroContentProps) => {
       <div className="container upcoming-movies__content-container">
         <div className="upcoming-movies__content">
           <div className="upcoming-movies__text">
-            <h2 className="upcoming-movies__title">{props.movie.title}</h2>
+            <Link
+              to={`/${props.movie.mediaType}/${props.movie.id}`}
+              className="upcoming-movies__link"
+            >
+              <h2 className="upcoming-movies__title">{props.movie.title}</h2>
+            </Link>
             <Genres genres={props.genres} />
           </div>
           {trailersQuery.isSuccess && !!trailersQuery.data.length && (
@@ -118,7 +127,7 @@ const Hero = () => {
       <section className="upcoming-movies">
         <HeroSlider>
           {movies.map((movie) => {
-            const genres = extractGenres(genresQuery.data!, movie.genreIds);
+            const genres = extractGenres(genresQuery.data!, movie.genreIds!);
             const backdrop = getBackdropPath(movie.backdropPath, "original");
             return (
               <Fragment key={movie.id}>

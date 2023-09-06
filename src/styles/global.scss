@@ -13,7 +13,6 @@
 
 * {
   box-sizing: border-box;
-  font-family: "Noto Sans", sans-serif;
 }
 
 html,
@@ -22,6 +21,7 @@ body {
   font-size: 16px;
   color: $font-primary;
   background-color: $primary-color;
+  font-family: "Noto Sans", sans-serif;
 }
 
 h1,

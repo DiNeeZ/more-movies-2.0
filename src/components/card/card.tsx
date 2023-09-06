@@ -20,14 +20,14 @@ interface CardProps {
 }
 
 const Card = ({ info, srcSet, genres }: CardProps) => {
-  const { id, title, releaseDate } = info;
+  const { id, title, releaseDate, mediaType } = info;
   const releaseYear = releaseDate
     ? moment(new Date(releaseDate)).format("YYYY")
     : null;
 
   return (
     <article className="card">
-      <Link className="card__link" to={`/${id}`}>
+      <Link className="card__link" to={`/${mediaType}/${id}`}>
         <div className="">
           <div className="card__image-wrapper">
             <CustomImage src={srcSet} alt={title} width={372} height={558} />

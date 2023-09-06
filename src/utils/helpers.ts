@@ -83,10 +83,25 @@ export const snakeToCamel = (str: string) =>
   str.replace(/[^a-zA-Z0-9]+(.)/g, (_, chr) => chr.toUpperCase());
 // --------------------------------------------------------------------------------
 
+// Slugify
+export const slugify = (str: string) => {
+  return String(str)
+    .normalize("NFKD") // split accented characters into their base characters and diacritical marks
+    .replace(/[\u0300-\u036f]/g, "") // remove all the accents, which happen to be all in the \u03xx UNICODE block.
+    .trim() // trim leading or trailing whitespace
+    .toLowerCase() // convert to lowercase
+    .replace(/[^a-z0-9 -]/g, "") // remove non-alphanumeric characters
+    .replace(/\s+/g, "-") // replace spaces with hyphens
+    .replace(/-+/g, "-"); // remove consecutive hyphens
+};
+// --------------------------------------------------------------------------------
+
 // Rename Snake Keys To Camel
 export const renameSnakeKeysToCamel = (obj: object) => {
   const entries = Object.keys(obj).map((key) => {
-    const newKey = key.includes("_") ? snakeToCamel(key) : key;
+    const newKey = key.includes("_")
+      ? snakeToCamel(key)
+      : key.charAt(0).toLowerCase() + key.slice(1);
 
     const value = obj[key as keyof typeof obj] as [];
     const isValueArray = Array.isArray(value) && !!value.length;
@@ -123,5 +138,15 @@ export const genericizeMediaShape = (obj: object) => {
   });
 
   return Object.assign({}, ...entries);
+};
+// --------------------------------------------------------------------------------
+
+// Transform Date
+export const transformDate = (date: string) => {
+  return new Date(date).toLocaleString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 };
 // --------------------------------------------------------------------------------

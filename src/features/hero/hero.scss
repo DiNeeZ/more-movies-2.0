@@ -59,6 +59,14 @@
       font-family: "Rajdhani", sans-serif;
     }
   }
+
+  &__link {
+    transition: color 0.15s ease-in-out;
+
+    &:hover {
+      color: lighten($font-secondary, 10);
+    }
+  }
 }
 
 @include small-tablet {

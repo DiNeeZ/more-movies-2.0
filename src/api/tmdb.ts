@@ -12,6 +12,12 @@ import {
   PersonResponse,
   PersonResponseSchema,
 } from "../models/person-model";
+import {
+  MovieDetailsSchema,
+  TVDetailsSchema,
+  type MovieDetails,
+  type TVDetails,
+} from "../models/details-model";
 
 const BASE_URL = "https://api.themoviedb.org/3/";
 export const BASE_IMAGES = "https://image.tmdb.org/t/p/";
@@ -25,6 +31,24 @@ export const getGenres = async () => {
     `genre/movie/list?api_key=${API_KEY}&language=en-US`
   );
   return response.data.genres;
+};
+
+export const getMovie = async ({
+  id,
+  mediaType,
+}: GenericRequestInfo): Promise<MovieDetails | TVDetails> => {
+  const response = await MOVIE_API.get(
+    `${mediaType}/${id}?api_key=${API_KEY}&language=en-US`
+  );
+
+  console.log(response);
+
+  const responseToCamelCaseKeys = renameSnakeKeysToCamel(response.data);
+  const transformedData = genericizeMediaShape(responseToCamelCaseKeys);
+  const dataToParse = { mediaType, ...transformedData };
+
+  if (mediaType === "tv") return TVDetailsSchema.parse(dataToParse);
+  return MovieDetailsSchema.parse(dataToParse);
 };
 
 export const getTrendingMovies = async () => {
@@ -48,9 +72,9 @@ export const getTrendingTvs = async () => {
   );
 
   const transformedResponse = response.data.results.map((result) => {
-    const camelCaseKeys = renameSnakeKeysToCamel(result);
+    const responseToCamelCaseKeys = renameSnakeKeysToCamel(result);
     return {
-      ...genericizeMediaShape(camelCaseKeys),
+      ...genericizeMediaShape(responseToCamelCaseKeys),
     };
   });
 
@@ -76,7 +100,7 @@ export const getUpcoming = async () => {
   });
 };
 
-export const getTrailers = async ({ id, mediaType }: ITrailersRequestInfo) => {
+export const getTrailers = async ({ id, mediaType }: GenericRequestInfo) => {
   const response = await MOVIE_API.get<TrailerResponse>(
     `${mediaType}/${id}/videos?api_key=${API_KEY}`
   );

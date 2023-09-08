@@ -7,7 +7,7 @@ export const PersonSchema = z.object({
   knownFor: z.array(MediaSchema),
   knownForDepartment: z.string(),
   name: z.string(),
-  profilePath: z.string(),
+  profilePath: z.union([z.string(), z.null()]),
 });
 
 export const PersonResponseSchema = z.object({

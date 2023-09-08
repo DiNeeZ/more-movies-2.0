@@ -128,9 +128,11 @@ const Details = () => {
                     </span>
                   </span>
                 )}
-                <span className="additional-info__item additional-info__item--tagline">
-                  "{details.tagline}"
-                </span>
+                {details.tagline && (
+                  <span className="additional-info__item additional-info__item--tagline">
+                    "{details.tagline}"
+                  </span>
+                )}
               </div>
             </div>
           </div>

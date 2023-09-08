@@ -14,7 +14,7 @@ const TrandingMovies = () => {
   const trandingMoviesQuery = useQuery("tranding-movies", getTrendingMovies);
 
   const renderMoviesGrid = (movie: Media) => {
-    const genres = extractGenres(genresQuery.data!, movie.genreIds);
+    const genres = extractGenres(genresQuery.data!, movie.genreIds!);
     const srcSet = getPosterPath(movie.posterPath);
     return <Card key={movie.id} info={movie} srcSet={srcSet} genres={genres} />;
   };

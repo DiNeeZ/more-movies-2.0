@@ -57,6 +57,14 @@ export const getProfilePath = (path: string | undefined) => {
 };
 // --------------------------------------------------------------------------------
 
+// Get Logo Image path
+export const getLogoImagePath = (path: string | undefined) => {
+  if (!path) return undefined;
+
+  return getImageUrl(300, path);
+};
+// --------------------------------------------------------------------------------
+
 // Convert Hex To RGBA
 export const convertHexToRGBA = (hexCode: string, opacity = 1) => {
   let hex = hexCode.replace("#", "");

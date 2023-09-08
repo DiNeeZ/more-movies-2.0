@@ -18,6 +18,7 @@ import {
   type MovieDetails,
   type TVDetails,
 } from "../models/details-model";
+import { BaseImage, Images, ImagesSchema } from "../models/image-model";
 
 const BASE_URL = "https://api.themoviedb.org/3/";
 export const BASE_IMAGES = "https://image.tmdb.org/t/p/";
@@ -128,4 +129,24 @@ export const getPopularPersons = async () => {
     ...response.data,
     results: generalizedResponse,
   });
+};
+
+export const getImages = async ({ id, mediaType }: GenericRequestInfo) => {
+  const response = await MOVIE_API.get<Images>(
+    `${mediaType}/${id}/images?api_key=${API_KEY}`
+  );
+
+  const result = {
+    backdrops: response.data.backdrops.map<BaseImage>((backdrop) =>
+      renameSnakeKeysToCamel(backdrop)
+    ),
+    posters: response.data.posters.map<BaseImage>((poster) =>
+      renameSnakeKeysToCamel(poster)
+    ),
+    logos: response.data.logos.map<BaseImage>((logo) =>
+      renameSnakeKeysToCamel(logo)
+    ),
+  };
+
+  return ImagesSchema.parse(result);
 };

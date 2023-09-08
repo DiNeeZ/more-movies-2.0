@@ -2,14 +2,6 @@
 @import "../../styles/colors.scss";
 
 .details {
-  &__title {
-    margin: 0;
-    font-size: 2.5rem;
-    max-width: 30rem;
-    color: $font-primary;
-    text-shadow: 2px 2px 2px rgba($font-secondary, 0.7);
-  }
-
   &__overview {
     margin: 0;
     max-width: 70%;
@@ -148,7 +140,7 @@
 
 .details-media {
   position: relative;
-  margin-top: -10rem;
+  margin-top: -2.5rem;
 }
 
 @include small-tablet {

@@ -9,6 +9,7 @@ import HeroSlider from "./hero-slider/hero-slider";
 import Modal from "./modal/modal";
 import Video from "./video/video";
 import PersonLink from "./person-link/person-link";
+import PhotoGallery from "./photo-gallery/photo-gallery";
 
 export {
   Card,
@@ -22,4 +23,5 @@ export {
   Modal,
   Video,
   PersonLink,
+  PhotoGallery,
 };

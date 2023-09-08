@@ -11,6 +11,7 @@ export const MediaSchema = z.object({
   releaseDate: z.string(),
   voteAverage: z.number(),
   voteCount: z.number(),
+  homepage: z.string().url().optional(),
 });
 
 export type Media = z.infer<typeof MediaSchema>;

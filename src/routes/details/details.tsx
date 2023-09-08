@@ -1,6 +1,7 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { BsDot } from "react-icons/bs";
+import { TbWorldWww } from "react-icons/tb";
 
 import { CustomImage, Section, Genres } from "../../components";
 import { getMovie } from "../../api/tmdb";
@@ -39,6 +40,7 @@ const Details = () => {
       details.mediaType === "movie" && (details as MovieDetails);
     const tvDetails = details.mediaType === "tv" && (details as TVDetails);
     const backdrop = getBackdropPath(details.backdropPath, "original");
+    const backdropMobile = getBackdropPath(details.backdropPath, "mobile");
 
     const credentials = {
       id,
@@ -86,16 +88,30 @@ const Details = () => {
 
     return (
       <main className="main details">
+        <div className="details-hero__image-mobile">
+          <CustomImage src={backdropMobile} alt={details.title} />
+        </div>
         <Section className="details-hero">
           <div className="details-hero__image">
             <CustomImage src={backdrop} alt={details.title} />
           </div>
+
           <div className="content">
             <h1 className="details__title">{details.title}</h1>
             <p className="details__overview">{details.overview}</p>
             {!!details.genres.length && <Genres genres={details.genres} />}
             <div className="details__info">
-              <FullRating credentials={credentials} />
+              <div className="details__links">
+                <FullRating credentials={credentials} />
+                {details.homepage && (
+                  <div className="details__website-link">
+                    <TbWorldWww size={25} />
+                    <Link target="_blank" to={details.homepage}>
+                      official website
+                    </Link>
+                  </div>
+                )}
+              </div>
               <div className="details__additional-info additional-info">
                 <span className="additional-info__item additional-info__item--time">
                   {movieDetails && renderMovieTime(movieDetails)}
@@ -108,7 +124,7 @@ const Details = () => {
                     <span>Episodes: {tvDetails.numberOfEpisodes}</span>
                   </p>
                 )}
-                {movieDetails && movieDetails.budget && (
+                {movieDetails && movieDetails.budget + 1 && (
                   <span className="additional-info__item additional-info__item--budget">
                     <em className="additional-info__label">Budget</em>
                     <span>
@@ -118,7 +134,7 @@ const Details = () => {
                     </span>
                   </span>
                 )}
-                {movieDetails && movieDetails.revenue && (
+                {movieDetails && movieDetails.revenue + 1 && (
                   <span className="additional-info__item additional-info__item--revenue">
                     <em className="additional-info__label">Box Office</em>
                     <span>
@@ -136,6 +152,14 @@ const Details = () => {
               </div>
             </div>
           </div>
+        </Section>
+        <Section className="details-media">
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt
+            iure consequatur totam, repellat, ducimus perspiciatis possimus
+            explicabo fuga veniam ut suscipit officiis minus accusantium
+            molestiae, assumenda dolorum blanditiis exercitationem praesentium?
+          </p>
         </Section>
       </main>
     );

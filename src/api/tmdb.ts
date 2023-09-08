@@ -41,8 +41,6 @@ export const getMovie = async ({
     `${mediaType}/${id}?api_key=${API_KEY}&language=en-US`
   );
 
-  console.log(response);
-
   const responseToCamelCaseKeys = renameSnakeKeysToCamel(response.data);
   const transformedData = genericizeMediaShape(responseToCamelCaseKeys);
   const dataToParse = { mediaType, ...transformedData };

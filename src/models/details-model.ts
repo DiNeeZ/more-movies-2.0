@@ -24,7 +24,7 @@ export const MovieDetailsSchema = BaseDetailsSchema.extend({
 });
 
 export const TVDetailsSchema = BaseDetailsSchema.extend({
-  lastAirDate: z.string(),
+  lastAirDate: z.union([z.string(), z.null()]),
   episodeRunTime: z.number().array(),
   status: z.string(),
   numberOfEpisodes: z.number(),

@@ -47,7 +47,7 @@ export const getBackdropPath = (
 // --------------------------------------------------------------------------------
 
 // Get Profile Path
-export const getProfilePath = (path: string | undefined) => {
+export const getProfilePath = (path: string | null) => {
   if (!path) return undefined;
 
   return {

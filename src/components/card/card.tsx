@@ -16,7 +16,7 @@ interface CardProps {
         preview: string;
       }
     | undefined;
-  genres: Genre[];
+  genres?: Genre[];
 }
 
 const Card = ({ info, srcSet, genres }: CardProps) => {
@@ -44,7 +44,7 @@ const Card = ({ info, srcSet, genres }: CardProps) => {
               <span>Rating</span>
               <span>{info.voteAverage.toFixed(1)}</span>
             </p>
-            {!!genres.length && <Genres genres={genres} />}
+            {genres && !!genres.length && <Genres genres={genres} />}
           </div>
           <div className="card-descr__release-year">{releaseYear}</div>
         </div>
@@ -64,7 +64,7 @@ const Card = ({ info, srcSet, genres }: CardProps) => {
               {info.voteCount} votes)
             </span>
           </p>
-          {!!genres.length && <Genres genres={genres} />}
+          {genres && !!genres.length && <Genres genres={genres} />}
         </div>
       </Link>
     </article>

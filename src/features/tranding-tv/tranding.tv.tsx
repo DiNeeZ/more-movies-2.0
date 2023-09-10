@@ -13,7 +13,8 @@ const TrandingTvs = () => {
   const trandingTvsQuery = useQuery("tranding-tvs", getTrendingTvs);
 
   const renderTvsGrid = (show: Media) => {
-    const genres = extractGenres(genresQuery.data!, show.genreIds);
+    const genres =
+      show.genreIds && extractGenres(genresQuery.data!, show.genreIds);
     const srcSet = getPosterPath(show.posterPath);
     return <Card key={show.id} info={show} srcSet={srcSet} genres={genres} />;
   };

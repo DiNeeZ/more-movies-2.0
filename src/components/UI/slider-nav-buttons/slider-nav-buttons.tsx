@@ -1,8 +1,9 @@
 import { BiSolidChevronLeft, BiSolidChevronRight } from "react-icons/bi";
 
-import "./slider-nav-buttons.scss";
 import { useSwiper } from "swiper/react";
 import { useEffect, useState } from "react";
+
+import "./slider-nav-buttons.scss";
 
 const SliderNavButtons = ({ loop = false }: { loop?: boolean }) => {
   const [config, setConfig] = useState({

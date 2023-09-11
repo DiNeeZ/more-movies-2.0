@@ -17,19 +17,24 @@ export const getImageUrl = (size: number | "original", imgPath: string) => {
 // --------------------------------------------------------------------------------
 
 // Get Poster Path
-export const getPosterPath = (path: string | undefined) => {
+export const getPosterPath = (path?: string, size?: "original" | "big") => {
   if (!path) return undefined;
+
+  const imageSizes = {
+    original: "original" as const,
+    big: 780,
+  };
 
   return {
     preview: getImageUrl(92, path),
-    image: getImageUrl(342, path),
+    image: getImageUrl(size ? imageSizes[size] : 342, path),
   };
 };
 // --------------------------------------------------------------------------------
 
 // Get Backdrop Path
 export const getBackdropPath = (
-  path: string | undefined,
+  path?: string,
   size?: "original" | "mobile"
 ) => {
   if (!path) return undefined;

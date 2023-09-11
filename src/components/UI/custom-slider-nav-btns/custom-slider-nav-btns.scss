@@ -1,0 +1,54 @@
+@import "../../../styles/mixins.scss";
+@import "../../../styles/colors.scss";
+
+.custom-slider-nav-btn {
+  position: absolute;
+  width: 7rem;
+  height: 7rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: $font-primary;
+  background: none;
+  border: none;
+  outline: none;
+  z-index: 10;
+  cursor: pointer;
+  transition: color 0.15s ease-in-out, transform 0.15s ease-in-out;
+
+  &:disabled {
+    color: rgba($font-primary, 0.2);
+  }
+
+  &:hover:not(:disabled) {
+    color: $font-secondary;
+  }
+
+  &--left {
+    left: -6rem;
+  }
+
+  &--right {
+    right: -6rem;
+  }
+
+  &__btn-icon {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@include mobile {
+  .custom-slider-nav-btn {
+    top: initial;
+    bottom: 0;
+    transform: translateY(90%);
+
+    &--left {
+      left: 0;
+    }
+
+    &--right {
+      right: 0;
+    }
+  }
+}

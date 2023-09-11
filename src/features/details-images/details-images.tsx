@@ -16,7 +16,6 @@ const DetailsImages = ({ id, mediaType, title }: DetailsImagesProps) => {
   if (imageQuery.isSuccess) {
     return (
       <div>
-        DetailsImages
         <PhotoGallery images={imageQuery.data} title={title} />
       </div>
     );

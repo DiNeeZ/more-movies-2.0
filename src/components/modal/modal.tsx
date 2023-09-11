@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 
 import "./modal.scss";
 
+// Types
 interface PortalProps {
   children: ReactNode;
   wrapperId: string;
@@ -12,9 +13,12 @@ interface PortalProps {
 
 interface ModalProps {
   children: ReactNode;
+  width?: number;
   handleClose: () => void;
 }
+/* -------------------------------------------------------------------------------- */
 
+// Helper Wrapper
 const createWrapperAndAppendToBody = (wrapperId: string) => {
   const wrapperElement = document.createElement("div");
   wrapperElement.setAttribute("id", wrapperId);
@@ -22,7 +26,9 @@ const createWrapperAndAppendToBody = (wrapperId: string) => {
 
   return wrapperElement;
 };
+/* -------------------------------------------------------------------------------- */
 
+// React Portal Component
 const ReactPortal = ({ children, wrapperId }: PortalProps) => {
   const [wrapperElement, setWrapperElement] = useState<HTMLElement | null>(
     null
@@ -50,7 +56,9 @@ const ReactPortal = ({ children, wrapperId }: PortalProps) => {
 
   return createPortal(children, wrapperElement);
 };
+/* -------------------------------------------------------------------------------- */
 
+// React Modal Component
 const Modal = ({ children, handleClose }: ModalProps) => {
   useEffect(() => {
     const closeOnEscapeKey = (e: globalThis.KeyboardEvent) =>
@@ -88,5 +96,6 @@ const Modal = ({ children, handleClose }: ModalProps) => {
     </ReactPortal>
   );
 };
+/* -------------------------------------------------------------------------------- */
 
 export default Modal;

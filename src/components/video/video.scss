@@ -2,7 +2,6 @@
 @import "../../styles/colors.scss";
 
 // VIDEO
-
 .video {
   width: 100%;
   aspect-ratio: 16/9;
@@ -19,50 +18,6 @@
 
 // VIDEO NAVIGATION
 .video-nav {
-  &__btn {
-    position: absolute;
-    width: 7rem;
-    height: 7rem;
-    top: 50%;
-    transform: translateY(-50%);
-    color: $font-primary;
-    background: none;
-    border: none;
-    outline: none;
-    z-index: 10;
-    cursor: pointer;
-    transition: color 0.15s ease-in-out, transform 0.15s ease-in-out;
-
-    &:disabled {
-      color: rgba($font-primary, 0.2);
-    }
-
-    &:hover:not(:disabled) {
-      color: $font-secondary;
-    }
-
-    &--left {
-      left: -6rem;
-
-      &:focus:not(:disabled) {
-        transform: translate(-0.5rem, -50%);
-      }
-    }
-
-    &--right {
-      right: -6rem;
-
-      &:focus:not(:disabled) {
-        transform: translate(0.5rem, -50%);
-      }
-    }
-  }
-
-  &__btn-icon {
-    width: 100%;
-    height: 100%;
-  }
-
   &__dots {
     position: absolute;
     display: flex;
@@ -92,20 +47,6 @@
 
 @include mobile {
   .video-nav {
-    &__btn {
-      top: initial;
-      bottom: 0;
-      transform: translateY(90%);
-
-      &--left {
-        left: 0;
-      }
-
-      &--right {
-        right: 0;
-      }
-    }
-
     &__dots {
       display: none;
     }

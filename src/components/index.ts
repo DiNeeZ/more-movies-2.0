@@ -8,6 +8,7 @@ import Genres from "./genres/genres";
 import HeroSlider from "./hero-slider/hero-slider";
 import Modal from "./modal/modal";
 import Video from "./video/video";
+import Player from "./player/player";
 import PersonLink from "./person-link/person-link";
 import PhotoGallery from "./photo-gallery/photo-gallery";
 
@@ -24,4 +25,5 @@ export {
   Video,
   PersonLink,
   PhotoGallery,
+  Player,
 };

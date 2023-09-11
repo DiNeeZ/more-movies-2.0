@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
 
+import { Player } from "..";
 import { Trailer } from "../../models/trailers-model";
+import { CustomSliderNavBtns } from "../UI";
 
 import "./video.scss";
-import Player from "../player/player";
 
+// Types
 interface VideoNavProps {
   trailers: Array<Trailer>;
   currentVideo: number;
@@ -13,7 +14,9 @@ interface VideoNavProps {
   handleRightClick: () => void;
   handleDotClick: (index: number) => void;
 }
+/* -------------------------------------------------------------------------------- */
 
+// Video Navigation Component
 const VideoNav = (props: VideoNavProps) => {
   const {
     trailers,
@@ -25,20 +28,13 @@ const VideoNav = (props: VideoNavProps) => {
 
   return (
     <div className="video-nav">
-      <button
-        className="video-nav__btn video-nav__btn--left"
-        onClick={handleLeftClick}
-        disabled={currentVideo <= 0}
-      >
-        <FaCaretLeft className="video-nav__btn-icon" />
-      </button>
-      <button
-        className="video-nav__btn video-nav__btn--right"
-        onClick={handleRightClick}
-        disabled={currentVideo >= trailers.length - 1}
-      >
-        <FaCaretRight className="video-nav__btn-icon" />
-      </button>
+      <CustomSliderNavBtns
+        totalSlides={trailers.length}
+        currentSlide={currentVideo}
+        handleLeftClick={handleLeftClick}
+        handleRightClick={handleRightClick}
+      />
+
       <div className="video-nav__dots">
         {trailers.map((trailer, idx) => (
           <span
@@ -53,7 +49,9 @@ const VideoNav = (props: VideoNavProps) => {
     </div>
   );
 };
+/* -------------------------------------------------------------------------------- */
 
+// Video Component
 const Video = ({ trailers }: { trailers: Array<Trailer> }) => {
   const [currentVideo, setCurrentVideo] = useState(0);
 
@@ -86,5 +84,6 @@ const Video = ({ trailers }: { trailers: Array<Trailer> }) => {
     </div>
   );
 };
+/* -------------------------------------------------------------------------------- */
 
 export default Video;

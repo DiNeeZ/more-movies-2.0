@@ -59,7 +59,7 @@ const ReactPortal = ({ children, wrapperId }: PortalProps) => {
 /* -------------------------------------------------------------------------------- */
 
 // React Modal Component
-const Modal = ({ children, handleClose }: ModalProps) => {
+const Modal = ({ children, width, handleClose }: ModalProps) => {
   useEffect(() => {
     const closeOnEscapeKey = (e: globalThis.KeyboardEvent) =>
       e.key === "Escape" ? handleClose() : null;
@@ -86,7 +86,10 @@ const Modal = ({ children, handleClose }: ModalProps) => {
         transition={{ type: "tween" }}
         className="modal modal-close"
       >
-        <div className="modal__content">
+        <div
+          style={{ width: width ? `${width}%` : "auto" }}
+          className="modal__content"
+        >
           <button className="modal__close-btn" onClick={handleClose}>
             <IoMdClose />
           </button>

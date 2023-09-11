@@ -7,7 +7,7 @@ import { CustomImage, Section, Genres } from "../../components";
 import { getMovie } from "../../api/tmdb";
 
 import { getBackdropPath, transformDate } from "../../utils/helpers";
-import { DetailsImages, DetailsTitle, FullRating } from "../../features";
+import { DetailsMedia, DetailsTitle, FullRating } from "../../features";
 import { MovieDetails, TVDetails } from "../../models/details-model";
 
 import "./details.scss";
@@ -158,19 +158,11 @@ const Details = () => {
             </div>
           </div>
         </Section>
-        <Section className="details-media">
-          <DetailsImages
-            id={String(details.id)}
-            mediaType={details.mediaType}
-            title={details.title}
-          />
-          <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt
-            iure consequatur totam, repellat, ducimus perspiciatis possimus
-            explicabo fuga veniam ut suscipit officiis minus accusantium
-            molestiae, assumenda dolorum blanditiis exercitationem praesentium?
-          </p>
-        </Section>
+        <DetailsMedia
+          id={String(details.id)}
+          mediaType={details.mediaType}
+          title={details.title}
+        />
       </main>
     );
   }

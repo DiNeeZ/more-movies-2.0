@@ -76,7 +76,7 @@ const HeroContent = (props: HeroContentProps) => {
           )}
           <AnimatePresence>
             {isModalOpen && trailersQuery.isSuccess && (
-              <Modal handleClose={modalVideoClose}>
+              <Modal width={80} handleClose={modalVideoClose}>
                 <Video trailers={trailersQuery.data} />
               </Modal>
             )}

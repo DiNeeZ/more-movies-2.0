@@ -1,0 +1,17 @@
+@import "../../styles/mixins.scss";
+
+.details-media {
+  position: relative;
+  margin-top: -2.5rem;
+
+  &__gabarites {
+    display: flex;
+  }
+}
+
+@include mobile {
+  .details-media {
+    position: static;
+    margin-top: auto;
+  }
+}

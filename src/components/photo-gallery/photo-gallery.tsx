@@ -73,7 +73,7 @@ const PhotoGallery = ({ images, title }: { images: Images; title: string }) => {
   const handleGalleryClose = () => setIsGalleryOpen(false);
 
   return (
-    <div>
+    <>
       <button
         onClick={handleGalleryOpen}
         className="btn-reset gallery__btn"
@@ -86,7 +86,7 @@ const PhotoGallery = ({ images, title }: { images: Images; title: string }) => {
           <GalleryContent images={photos} title={title} />
         </Modal>
       )}
-    </div>
+    </>
   );
 };
 /* -------------------------------------------------------------------------------- */

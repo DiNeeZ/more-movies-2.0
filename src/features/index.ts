@@ -4,8 +4,8 @@ import Hero from "./hero/hero";
 import TrandingMovies from "./tranding-movies/tranding.movies";
 import TrandingTvs from "./tranding-tv/tranding.tv";
 import FullRating from "./full-rating/full-rating";
-import DetailsImages from "./details-images/details-images";
 import DetailsTitle from "./details-title/details-title";
+import DetailsMedia from "./details-media/details-media";
 
 export {
   Header,
@@ -14,6 +14,6 @@ export {
   TrandingMovies,
   TrandingTvs,
   FullRating,
-  DetailsImages,
   DetailsTitle,
+  DetailsMedia,
 };

@@ -64,10 +64,12 @@ const DetailsMedia = ({ id, mediaType, title }: DetailsMediaProps) => {
     setIsGalleryOpen(false);
     setIsTrailersOpen(true);
   };
+  const handleTrailersClose = () => setIsTrailersOpen(false);
   const handleGalleryOpen = () => {
     setIsTrailersOpen(false);
     setIsGalleryOpen(true);
   };
+  const handleGalleryClose = () => setIsGalleryOpen(false);
 
   if (imageQuery.isSuccess && trailersQuery.isSuccess) {
     const images = getGalleryImages(imageQuery.data);
@@ -107,20 +109,21 @@ const DetailsMedia = ({ id, mediaType, title }: DetailsMediaProps) => {
           </button>
         </div>
         {/* Modals */}
-        {isTrailersOpen && (
-          <AnimatePresence>
-            <Modal width={80} handleClose={() => setIsTrailersOpen(false)}>
-              <Video trailers={trailersQuery.data} />
-            </Modal>
-          </AnimatePresence>
-        )}
-        {isGalleryOpen && (
-          <AnimatePresence>
-            <Modal handleClose={() => setIsGalleryOpen(false)}>
+        <AnimatePresence>
+          {isGalleryOpen && (
+            <Modal handleClose={handleGalleryClose}>
               <PhotoGallery title={title} images={images} />
             </Modal>
-          </AnimatePresence>
-        )}
+          )}
+        </AnimatePresence>
+        <AnimatePresence>
+          {isTrailersOpen && (
+            <Modal width={80} handleClose={handleTrailersClose}>
+              <Video trailers={trailersQuery.data} />
+            </Modal>
+          )}
+        </AnimatePresence>
+
         {/* End Modals */}
       </Section>
     );

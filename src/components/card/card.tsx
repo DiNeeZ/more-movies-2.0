@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import moment from "moment";
 import { AiFillStar, AiOutlineUser } from "react-icons/ai";
+import moment from "moment";
 
 import { CustomImage, Genres } from "..";
 import { Genre } from "../../models/genre-model";

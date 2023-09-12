@@ -5,7 +5,7 @@
   &__overview {
     margin: 0;
     max-width: 70%;
-    font-family: "Rajdhani", sans-serif;
+
     font-size: 1.25rem;
     text-shadow: 1px 1px 1px rgba($font-secondary, 0.7);
   }
@@ -26,7 +26,7 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    font-family: "Rajdhani", sans-serif;
+
     text-transform: uppercase;
     color: $font-secondary;
     text-shadow: none;
@@ -115,7 +115,6 @@
   flex-direction: column;
   gap: 0.5rem;
   text-align: right;
-  font-family: "Rajdhani", sans-serif;
   text-shadow: 1px 1px 1px rgba($font-secondary, 0.7);
 
   &__item {
@@ -125,11 +124,10 @@
     gap: 1rem;
 
     &--tagline {
-      font-family: "Noto Sans", sans-serif;
       font-style: italic;
       letter-spacing: 1px;
       font-weight: 300;
-      font-size: 0.85rem;
+      font-size: 1.15rem;
     }
   }
 
@@ -137,11 +135,6 @@
     font-weight: 500;
   }
 }
-
-// .details-media {
-//   position: relative;
-//   margin-top: -2.5rem;
-// }
 
 @include small-tablet {
   .details {

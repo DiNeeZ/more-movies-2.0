@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { CustomImage, Modal } from "..";
-import { BaseImage, Images } from "../../models/image-model";
-import { getBackdropPath, getPosterPath } from "../../utils/helpers";
-import "./photo-gallery.scss";
+
+import { CustomImage } from "..";
 import { CustomSliderNavBtns } from "../UI";
+
+import "./photo-gallery.scss";
 
 // Types
 interface ImageSource {
@@ -11,19 +11,15 @@ interface ImageSource {
   preview: string;
 }
 
-interface GalleryContentProps {
+interface PhotoGalleryProps {
   images: (ImageSource | undefined)[];
   title: string;
 }
-/* -------------------------------------------------------------------------------- */
 
-// Helper function
-const filterImagesToSingleLanguage = (images: BaseImage[], lang: string) =>
-  images.filter((image) => image.iso6391 === null || image.iso6391 === lang);
 /* -------------------------------------------------------------------------------- */
 
 // Gallery Content Component
-const GalleryContent = ({ images, title }: GalleryContentProps) => {
+const PhotoGallery = ({ images, title }: PhotoGalleryProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const handleLeftClick = () => {
@@ -40,13 +36,13 @@ const GalleryContent = ({ images, title }: GalleryContentProps) => {
 
   return (
     <>
-      <div className="gallery-content">
-        <div className="gallery-content__counter">
+      <div className="photo-gallery">
+        <div className="photo-gallery__counter">
           {currentImageIndex + 1} of {images.length}
         </div>
         <CustomImage src={images[currentImageIndex]} alt={title} />
       </div>
-      <div className="gallery-content__nav">
+      <div className="photo-gallery__nav">
         <CustomSliderNavBtns
           currentSlide={currentImageIndex}
           totalSlides={images.length}
@@ -54,38 +50,6 @@ const GalleryContent = ({ images, title }: GalleryContentProps) => {
           handleRightClick={handleRightClick}
         />
       </div>
-    </>
-  );
-};
-/* -------------------------------------------------------------------------------- */
-
-// Photo Gallery Component
-const PhotoGallery = ({ images, title }: { images: Images; title: string }) => {
-  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
-  const posters = filterImagesToSingleLanguage(images.posters, "en");
-  const backdrops = filterImagesToSingleLanguage(images.backdrops, "en");
-  const btnImageSrc = getPosterPath(posters[0].filePath);
-  const photos = backdrops.map((backdrop) =>
-    getBackdropPath(backdrop.filePath)
-  );
-
-  const handleGalleryOpen = () => setIsGalleryOpen(true);
-  const handleGalleryClose = () => setIsGalleryOpen(false);
-
-  return (
-    <>
-      <button
-        onClick={handleGalleryOpen}
-        className="btn-reset gallery__btn"
-        aria-label="open gallery"
-      >
-        <CustomImage src={btnImageSrc} alt={`${title}-image-btn`} />
-      </button>
-      {isGalleryOpen && (
-        <Modal handleClose={handleGalleryClose}>
-          <GalleryContent images={photos} title={title} />
-        </Modal>
-      )}
     </>
   );
 };

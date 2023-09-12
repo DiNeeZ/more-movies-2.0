@@ -1,11 +1,67 @@
 @import "../../styles/mixins.scss";
+@import "../../styles/colors.scss";
 
 .details-media {
   position: relative;
-  margin-top: -2.5rem;
+  margin-top: -7.5rem;
 
-  &__gabarites {
+  &__previews {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+
+    .player {
+      display: flex;
+      grid-column: 3 span;
+      border-radius: 0.25rem;
+      overflow: hidden;
+    }
+  }
+
+  &__gallery {
+    grid-column: 1 span;
+    border-radius: 0.25rem;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  & .details-media__btn {
+    padding: 0.65rem 0;
+  }
+
+  &__btn {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: 1px;
+    color: $font-primary;
+    background-color: $dark-color;
+    border-radius: 0.2rem;
+    transition: background-color 0.15s ease-in-out;
+
+    &:hover:enabled {
+      background-color: lighten($dark-color, 5);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: initial;
+    }
   }
 }
 
@@ -13,5 +69,27 @@
   .details-media {
     position: static;
     margin-top: auto;
+
+    &__previews {
+      grid-auto-rows: 2;
+
+      .player {
+        order: -1;
+        grid-column: 4 span;
+
+        &--no-video {
+          display: none;
+        }
+      }
+    }
+
+    &__gallery {
+      grid-column: 4 span;
+      aspect-ratio: 16/9;
+
+      img {
+        object-position: top;
+      }
+    }
   }
 }

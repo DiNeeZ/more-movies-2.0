@@ -1,10 +1,17 @@
 import { useState, useTransition } from "react";
 import YouTube, { YouTubeEvent } from "react-youtube";
-import { BsYoutube } from "react-icons/bs";
+import { BsYoutube, BsCameraVideoOff } from "react-icons/bs";
 
 import { Trailer } from "../../models/trailers-model";
 
 import "./player.scss";
+
+const NoVideo = () => (
+  <div className="player player--no-video">
+    <BsCameraVideoOff size={60} />
+    <p>There is no video</p>
+  </div>
+);
 
 const Player = ({ trailer }: { trailer: Trailer }) => {
   const [, startTransition] = useTransition();
@@ -16,19 +23,19 @@ const Player = ({ trailer }: { trailer: Trailer }) => {
     event.target.playVideo();
   };
 
+  const handleThumbnailClick = () => {
+    startTransition(() => {
+      setShowVideo(true);
+    });
+  };
+
+  if (!trailer) return <NoVideo />;
+
   return (
     <div className="player">
       {(!showVideo || !hasLoaded) && (
-        <button
-          className="thumbnail"
-          onClick={() => {
-            startTransition(() => {
-              console.log(showVideo);
-              setShowVideo(true);
-            });
-          }}
-        >
-          <div className="payer__inner">
+        <button className="thumbnail" onClick={handleThumbnailClick}>
+          <div className="player__inner">
             <img
               alt={trailer.name}
               src={`https://i.ytimg.com/vi/${trailer.key}/maxresdefault.jpg`}

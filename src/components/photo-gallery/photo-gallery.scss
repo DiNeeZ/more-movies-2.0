@@ -1,15 +1,7 @@
 @import "../../styles/mixins.scss";
 @import "../../styles/colors.scss";
 
-.gallery {
-  &__btn {
-    img {
-      vertical-align: top;
-    }
-  }
-}
-
-.gallery-content {
+.photo-gallery {
   position: relative;
   background-color: darken($primary-color, 5);
   width: 83vw;
@@ -34,7 +26,7 @@
 }
 
 @include big-desktop {
-  .gallery-content {
+  .photo-gallery {
     width: 96vw;
     max-height: 85vh;
     &__nav {

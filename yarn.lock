@@ -379,11 +379,6 @@
   resolved "https://registry.yarnpkg.com/@fontsource/bebas-neue/-/bebas-neue-5.0.9.tgz#0660b4489eeb85ba4c260dd5f400162a086713e6"
   integrity sha512-PuHdkWXAr6/ilksYTQxsTAnE28rvYnZpAMX5S6i9ZNODbkeiqjs//cc2sJfTM82gofwahfoas8FIAvOvZ8T8KA==
 
-"@fontsource/noto-sans@^5.0.9":
-  version "5.0.9"
-  resolved "https://registry.yarnpkg.com/@fontsource/noto-sans/-/noto-sans-5.0.9.tgz#a79e4a20c36eb4352dedec5e29e4568182102440"
-  integrity sha512-SvZDr+KJJ+J5Kx05l2qtss72yEJd0YdgvNxwAwO6gDKQqTbWJ5kUi0S9TBmVoQGw0gvQtbtlG9wBz8NQygjCyg==
-
 "@fontsource/rajdhani@^5.0.8":
   version "5.0.8"
   resolved "https://registry.yarnpkg.com/@fontsource/rajdhani/-/rajdhani-5.0.8.tgz#15557a0d306bb1a842e1cedc3e4b8721427c3298"

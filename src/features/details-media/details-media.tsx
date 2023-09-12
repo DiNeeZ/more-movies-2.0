@@ -109,7 +109,7 @@ const DetailsMedia = ({ id, mediaType, title }: DetailsMediaProps) => {
         {/* Modals */}
         {isTrailersOpen && (
           <AnimatePresence>
-            <Modal width={85} handleClose={() => setIsTrailersOpen(false)}>
+            <Modal width={80} handleClose={() => setIsTrailersOpen(false)}>
               <Video trailers={trailersQuery.data} />
             </Modal>
           </AnimatePresence>

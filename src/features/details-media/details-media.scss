@@ -18,18 +18,6 @@
     }
   }
 
-  &__gallery {
-    grid-column: 1 span;
-    border-radius: 0.25rem;
-    overflow: hidden;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-  }
-
   &__buttons {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -65,7 +53,44 @@
   }
 }
 
-@include mobile {
+.media-gallery {
+  position: relative;
+  grid-column: 1 span;
+  border-radius: 0.25rem;
+  overflow: hidden;
+
+  &__hover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba($white, 0.05);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+
+    @media (hover: hover) {
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__hover-icon {
+    color: $white;
+    opacity: 0.5;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+@include small-tablet {
   .details-media {
     position: static;
     margin-top: auto;

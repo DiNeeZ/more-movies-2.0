@@ -71,6 +71,7 @@ const DetailsMedia = ({ id, mediaType, title }: DetailsMediaProps) => {
   };
   const handleGalleryClose = () => setIsGalleryOpen(false);
 
+  //Render
   if (imageQuery.isSuccess && trailersQuery.isSuccess) {
     const images = getGalleryImages(imageQuery.data);
     return (
@@ -79,13 +80,16 @@ const DetailsMedia = ({ id, mediaType, title }: DetailsMediaProps) => {
         <div className="details-media__previews">
           <button
             onClick={handleGalleryOpen}
-            className="btn-reset details-media__gallery"
+            className="btn-reset details-media__gallery media-gallery"
             aria-label="open gallery"
           >
             <CustomImage
               src={getPosterPathForBtn(imageQuery.data)}
               alt={`${title}-image-btn`}
             />
+            <div className="media-gallery__hover">
+              <TbPhoto className="media-gallery__hover-icon" size={100} />
+            </div>
           </button>
           <Player trailer={trailersQuery.data[0]} />
         </div>
@@ -123,7 +127,6 @@ const DetailsMedia = ({ id, mediaType, title }: DetailsMediaProps) => {
             </Modal>
           )}
         </AnimatePresence>
-
         {/* End Modals */}
       </Section>
     );

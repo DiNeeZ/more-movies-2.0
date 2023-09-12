@@ -34,7 +34,7 @@ export const getPosterPath = (path?: string, size?: "original" | "big") => {
 
 // Get Backdrop Path
 export const getBackdropPath = (
-  path?: string,
+  path?: string | null,
   size?: "original" | "mobile"
 ) => {
   if (!path) return undefined;

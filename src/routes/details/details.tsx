@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { BsDot } from "react-icons/bs";
 import { TbWorldWww } from "react-icons/tb";
+import { Helmet } from "react-helmet-async";
 
 import { CustomImage, Section, Genres } from "../../components";
 import { getMovie } from "../../api/tmdb";
@@ -87,83 +88,108 @@ const Details = () => {
     };
 
     return (
-      <main className="main details">
-        <div className="details-hero__image-mobile">
-          <CustomImage src={backdropMobile} alt={details.title} />
-        </div>
-        <Section className="details-hero">
-          <div className="details-hero__image">
-            <CustomImage src={backdrop} alt={details.title} />
+      <>
+        <Helmet>
+          <title>More Movies - {details.title}</title>
+          <meta name="description" content={details.overview} />
+          <meta property="og:title" content={details.title} />
+          <meta property="og:description" content={details.overview} />
+          <meta property="og:type" content={`video.${details.mediaType}`} />
+          <meta
+            property="og:image"
+            content={getBackdropPath(details.backdropPath, "mobile")?.image}
+          />
+          <meta
+            property="og:url"
+            content={window.location.pathname + window.location.search}
+          />
+          <meta
+            property="og:url"
+            content="https://www.imdb.com/title/tt0117500/"
+          />
+          <meta
+            property="og:image"
+            content="https://ia.media-imdb.com/images/rock.jpg"
+          />
+        </Helmet>
+        <main className="main details">
+          <div className="details-hero__image-mobile">
+            <CustomImage src={backdropMobile} alt={details.title} />
           </div>
+          <Section className="details-hero">
+            <div className="details-hero__image">
+              <CustomImage src={backdrop} alt={details.title} />
+            </div>
 
-          <div className="content">
-            <DetailsTitle
-              id={String(details.id)}
-              mediaType={details.mediaType}
-              title={details.title}
-            />
+            <div className="content">
+              <DetailsTitle
+                id={String(details.id)}
+                mediaType={details.mediaType}
+                title={details.title}
+              />
 
-            <p className="details__overview">{details.overview}</p>
-            {!!details.genres.length && <Genres genres={details.genres} />}
-            <div className="details__info">
-              <div className="details__links">
-                <FullRating credentials={credentials} />
-                {details.homepage && (
-                  <div className="details__website-link">
-                    <TbWorldWww size={25} />
-                    <Link target="_blank" to={details.homepage}>
-                      official website
-                    </Link>
-                  </div>
-                )}
-              </div>
-              <div className="details__additional-info additional-info">
-                <span className="additional-info__item additional-info__item--time">
-                  {movieDetails && renderMovieTime(movieDetails)}
-                  {tvDetails && renderTvTime(tvDetails)}
-                </span>
-                {tvDetails && (
-                  <p className="movie-descr__episodes">
-                    <span>Seasons: {tvDetails.numberOfSeasons}</span>
-                    <BsDot />
-                    <span>Episodes: {tvDetails.numberOfEpisodes}</span>
-                  </p>
-                )}
-                {movieDetails && movieDetails.budget + 1 && (
-                  <span className="additional-info__item additional-info__item--budget">
-                    <em className="additional-info__label">Budget</em>
-                    <span>
-                      {movieDetails.budget === 0
-                        ? "N/A"
-                        : movieDetails.budget.toLocaleString() + " $"}
+              <p className="details__overview">{details.overview}</p>
+              {!!details.genres.length && <Genres genres={details.genres} />}
+              <div className="details__info">
+                <div className="details__links">
+                  <FullRating credentials={credentials} />
+                  {details.homepage && (
+                    <div className="details__website-link">
+                      <TbWorldWww size={25} />
+                      <Link target="_blank" to={details.homepage}>
+                        official website
+                      </Link>
+                    </div>
+                  )}
+                </div>
+                <div className="details__additional-info additional-info">
+                  <span className="additional-info__item additional-info__item--time">
+                    {movieDetails && renderMovieTime(movieDetails)}
+                    {tvDetails && renderTvTime(tvDetails)}
+                  </span>
+                  {tvDetails && (
+                    <p className="movie-descr__episodes">
+                      <span>Seasons: {tvDetails.numberOfSeasons}</span>
+                      <BsDot />
+                      <span>Episodes: {tvDetails.numberOfEpisodes}</span>
+                    </p>
+                  )}
+                  {movieDetails && movieDetails.budget + 1 && (
+                    <span className="additional-info__item additional-info__item--budget">
+                      <em className="additional-info__label">Budget</em>
+                      <span>
+                        {movieDetails.budget === 0
+                          ? "N/A"
+                          : movieDetails.budget.toLocaleString() + " $"}
+                      </span>
                     </span>
-                  </span>
-                )}
-                {movieDetails && movieDetails.revenue + 1 && (
-                  <span className="additional-info__item additional-info__item--revenue">
-                    <em className="additional-info__label">Box Office</em>
-                    <span>
-                      {movieDetails.revenue === 0
-                        ? "N/A"
-                        : movieDetails.revenue.toLocaleString() + " $"}
+                  )}
+                  {movieDetails && movieDetails.revenue + 1 && (
+                    <span className="additional-info__item additional-info__item--revenue">
+                      <em className="additional-info__label">Box Office</em>
+                      <span>
+                        {movieDetails.revenue === 0
+                          ? "N/A"
+                          : movieDetails.revenue.toLocaleString() + " $"}
+                      </span>
                     </span>
-                  </span>
-                )}
-                {details.tagline && (
-                  <span className="additional-info__item additional-info__item--tagline">
-                    "{details.tagline}"
-                  </span>
-                )}
+                  )}
+                  {details.tagline && (
+                    <span className="additional-info__item additional-info__item--tagline">
+                      "{details.tagline}"
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        </Section>
-        <DetailsMedia
-          id={String(details.id)}
-          mediaType={details.mediaType}
-          title={details.title}
-        />
-      </main>
+          </Section>
+          <DetailsMedia
+            id={String(details.id)}
+            mediaType={details.mediaType}
+            title={details.title}
+          />
+        </main>
+      </>
     );
   }
 };

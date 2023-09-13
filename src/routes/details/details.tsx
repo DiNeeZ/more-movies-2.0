@@ -90,27 +90,8 @@ const Details = () => {
     return (
       <>
         <Helmet>
-          <title>More Movies - {details.title}</title>
+          <title>MM - {details.title}</title>
           <meta name="description" content={details.overview} />
-          <meta property="og:title" content={details.title} />
-          <meta property="og:description" content={details.overview} />
-          <meta property="og:type" content={`video.${details.mediaType}`} />
-          <meta
-            property="og:image"
-            content={getBackdropPath(details.backdropPath, "mobile")?.image}
-          />
-          <meta
-            property="og:url"
-            content={window.location.pathname + window.location.search}
-          />
-          <meta
-            property="og:url"
-            content="https://www.imdb.com/title/tt0117500/"
-          />
-          <meta
-            property="og:image"
-            content="https://ia.media-imdb.com/images/rock.jpg"
-          />
         </Helmet>
         <main className="main details">
           <div className="details-hero__image-mobile">

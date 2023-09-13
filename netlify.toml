@@ -1,5 +1,5 @@
 [build]
-  command = "netlify deploy"
+  command = "tsc && vite build && netlify deploy"
   functions = ".netlify/functions"
   publish = "build"
 [functions]

@@ -4,7 +4,13 @@ import serverless from "serverless-http";
 const api = express();
 
 const router = Router();
-router.get("/hello", (req, res) => res.send("Hello Pain in the Ass!!!"));
+router.get("/hello", (req, res) => {
+  res.json({
+    number: 1,
+    name: "John",
+    gender: "male",
+  });
+});
 
 api.use("/api/", router);
 

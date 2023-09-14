@@ -92,6 +92,7 @@ const Details = () => {
         <Helmet>
           <title>MM - {details.title}</title>
           <meta name="description" content={details.overview} />
+          <meta property="og:description" content={details.overview} />
         </Helmet>
         <main className="main details">
           <div className="details-hero__image-mobile">

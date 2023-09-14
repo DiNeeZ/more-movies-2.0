@@ -92,7 +92,12 @@ const Details = () => {
         <Helmet>
           <title>MM - {details.title}</title>
           <meta name="description" content={details.overview} />
+          <meta property="og:title" content={details.title} />
           <meta property="og:description" content={details.overview} />
+          <meta
+            property="og:image"
+            content={getBackdropPath(details.backdropPath)?.image}
+          />
         </Helmet>
         <main className="main details">
           <div className="details-hero__image-mobile">

@@ -4,7 +4,7 @@ import { MediaSchema } from "./media-model";
 export const PersonSchema = z.object({
   id: z.number(),
   gender: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3)]),
-  knownFor: z.array(MediaSchema),
+  knownFor: z.array(MediaSchema).optional(),
   knownForDepartment: z.string(),
   name: z.string(),
   profilePath: z.union([z.string(), z.null()]),

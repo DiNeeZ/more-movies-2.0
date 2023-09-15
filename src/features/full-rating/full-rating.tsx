@@ -26,7 +26,7 @@ interface FullRatingProps {
 const FullRating = ({ credentials }: FullRatingProps) => {
   const imdbQuery = useQuery(
     `full-rating-${credentials.imdbId ?? credentials.title}`,
-    () => getIMDBRating(credentials.imdbId, slugify(credentials.title))
+    () => getIMDBRating(credentials.imdbId)
   );
 
   if (imdbQuery.isSuccess) {
@@ -54,46 +54,50 @@ const FullRating = ({ credentials }: FullRatingProps) => {
             <MdOutlineMan style={{ transform: "translateY(3px)" }} />)
           </span>
         </li>
-        <li className="full-rating__item rating-item">
-          <Link
-            to={`https://www.imdb.com/title/${imdbQuery.data.imdbID}`}
-            target="_blank"
-            className="rating-item__link"
-          >
-            <img
-              width={44}
-              height={22}
-              className="rating-item__pic"
-              src={IMDBLogo}
-              alt="IMDB logo"
-            />
-          </Link>
-          <span className="rating-item__nums">
-            {imdbQuery.data.imdbRating} / 10 ({imdbQuery.data.imdbVotes}{" "}
-            <MdOutlineMan style={{ transform: "translateY(3px)" }} />)
-          </span>
-        </li>
-        <li className="full-rating__item rating-item">
-          <Link
-            to={`https://www.metacritic.com/${credentials.mediaType}/${slugify(
-              credentials.title
-            )}`}
-            target="_blank"
-            className="rating-item__link"
-          >
-            <img
-              width={26}
-              height={26}
-              className="rating-item__pic"
-              src={MetacriticLogo}
-              alt="Metacritic logo"
-            />
-          </Link>
+        {!!imdbQuery.data && (
+          <>
+            <li className="full-rating__item rating-item">
+              <Link
+                to={`https://www.imdb.com/title/${imdbQuery.data.imdbID}`}
+                target="_blank"
+                className="rating-item__link"
+              >
+                <img
+                  width={44}
+                  height={22}
+                  className="rating-item__pic"
+                  src={IMDBLogo}
+                  alt="IMDB logo"
+                />
+              </Link>
+              <span className="rating-item__nums">
+                {imdbQuery.data.imdbRating} / 10 ({imdbQuery.data.imdbVotes}{" "}
+                <MdOutlineMan style={{ transform: "translateY(3px)" }} />)
+              </span>
+            </li>
+            <li className="full-rating__item rating-item">
+              <Link
+                to={`https://www.metacritic.com/${
+                  credentials.mediaType
+                }/${slugify(credentials.title)}`}
+                target="_blank"
+                className="rating-item__link"
+              >
+                <img
+                  width={26}
+                  height={26}
+                  className="rating-item__pic"
+                  src={MetacriticLogo}
+                  alt="Metacritic logo"
+                />
+              </Link>
 
-          <span className="rating-item__nums">
-            Metascore: {imdbQuery.data.metascore}
-          </span>
-        </li>
+              <span className="rating-item__nums">
+                Metascore: {imdbQuery.data.metascore}
+              </span>
+            </li>
+          </>
+        )}
       </ul>
     );
   }

@@ -8,7 +8,12 @@ import { CustomImage, Section, Genres } from "../../components";
 import { getMovie } from "../../api/tmdb";
 
 import { getBackdropPath, transformDate } from "../../utils/helpers";
-import { DetailsMedia, DetailsTitle, FullRating } from "../../features";
+import {
+  Credits,
+  DetailsMedia,
+  DetailsTitle,
+  FullRating,
+} from "../../features";
 import { MovieDetails, TVDetails } from "../../models/details-model";
 
 import "./details.scss";
@@ -175,6 +180,7 @@ const Details = () => {
             mediaType={details.mediaType}
             title={details.title}
           />
+          <Credits id={String(details.id)} mediaType={details.mediaType} />
         </main>
       </>
     );

@@ -19,6 +19,7 @@ import {
   type TVDetails,
 } from "../models/details-model";
 import { BaseImage, Images, ImagesSchema } from "../models/image-model";
+import { Credits, CreditsPerson, CreditsSchema } from "../models/credits-model";
 
 const BASE_URL = "https://api.themoviedb.org/3/";
 export const BASE_IMAGES = "https://image.tmdb.org/t/p/";
@@ -122,7 +123,7 @@ export const getPopularPersons = async () => {
 
   const generalizedResponse = transformedResponse.map((person: Person) => ({
     ...person,
-    knownFor: person.knownFor.map((movie) => genericizeMediaShape(movie)),
+    knownFor: person.knownFor?.map((movie) => genericizeMediaShape(movie)),
   }));
 
   return PersonResponseSchema.parse({
@@ -149,4 +150,22 @@ export const getImages = async ({ id, mediaType }: GenericRequestInfo) => {
   };
 
   return ImagesSchema.parse(result);
+};
+
+export const getCredits = async ({ id, mediaType }: GenericRequestInfo) => {
+  const response = await MOVIE_API.get<Credits>(
+    `${mediaType}/${id}/credits?api_key=${API_KEY}`
+  );
+
+  const result = {
+    id: response.data.id,
+    cast: response.data.cast.map<CreditsPerson>((person) =>
+      renameSnakeKeysToCamel(person)
+    ),
+    crew: response.data.crew.map<CreditsPerson>((person) =>
+      renameSnakeKeysToCamel(person)
+    ),
+  };
+
+  return CreditsSchema.parse(result);
 };

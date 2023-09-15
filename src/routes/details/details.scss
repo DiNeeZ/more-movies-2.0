@@ -2,6 +2,10 @@
 @import "../../styles/colors.scss";
 
 .details {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+
   &__overview {
     margin: 0;
     max-width: 70%;
@@ -37,6 +41,10 @@
     &:hover {
       color: lighten($font-secondary, 5);
     }
+  }
+
+  section:last-child {
+    margin-bottom: 5rem;
   }
 }
 

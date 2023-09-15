@@ -6,6 +6,7 @@ import TrandingTvs from "./tranding-tv/tranding.tv";
 import FullRating from "./full-rating/full-rating";
 import DetailsTitle from "./details-title/details-title";
 import DetailsMedia from "./details-media/details-media";
+import Credits from "./credits/credits";
 
 export {
   Header,
@@ -16,4 +17,5 @@ export {
   FullRating,
   DetailsTitle,
   DetailsMedia,
+  Credits,
 };
